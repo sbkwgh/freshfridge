@@ -3,7 +3,7 @@ var app = express();
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-var config = require('config.js');
+var config = require('./config.js');
 
 var routes;
 var db;
