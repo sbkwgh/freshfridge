@@ -1,43 +1,15 @@
 var express = require('express');
 var router = express.Router();
-var config = require('../config.js');
+var config = require('../../config.js');
+var ObjectId = require('mongoose').Types.ObjectId;
 
-var getProduct = require('../functions/getProduct.js');
-var getImageURL = require('../functions/getImageURL.js');
-var addProduct = require('../functions/addProduct.js');
+var getProduct = require('../../functions/getProduct.js');
+var getImageURL = require('../../functions/getImageURL.js');
+var addProduct = require('../../functions/addProduct.js');
 
-var Item = require('../models/item.js');
+var Item = require('../../models/item.js');
 
-router.get('/code', function(req, res, next) {
-	getProduct(req.query.code, function(err, product) {
-		if(err) {
-			res.json({
-				errors: err
-			})
-		} else {
-			res.json({
-				name: product
-			})
-		}
-	})
-});
-
-router.get('/image', function(req, res, next) {
-	getImageURL(req.query.name, function(err, url) {
-		if(err) {
-			res.json({
-				errors: err
-			});
-		} else {
-			res.json({
-				url: url
-			});
-		}
-	})
-})
-
-router.post('/addProduct', function(req, res) {
-	console.log('addProduct here')
+router.post('/add', function(req, res) {
 	if(!req.signedCookies.loggedIn) {
 		res.json({errors: 'unknown error'});
 	}
@@ -78,7 +50,7 @@ router.post('/addProduct', function(req, res) {
 	})
 });
 
-router.get('/items', function(req, res) {
+router.get('/', function(req, res) {
 	if(!req.signedCookies.loggedIn) res.json({errors: ['unknown error']});
 
 	Item.find({username: req.signedCookies.username}, function(err, items) {
@@ -89,7 +61,18 @@ router.get('/items', function(req, res) {
 	});
 })
 
-router.get('/getSoonExpiringItems', function(req, res) {
+router.post('/remove', function(req, res) {
+	if(!req.signedCookies.loggedIn) res.json({errors: ['unknown error']});
+
+	Item.findOne({_id: ObjectId(req.body._id)}).remove(function(err, item) {
+		if(err) res.json({errors: ['unknown error']});
+		res.json({
+			success: true
+		})
+	});
+})
+
+router.get('/soonExpiring', function(req, res) {
 	if(!req.signedCookies.loggedIn) res.json({errors: ['unknown error']});
 	
 	var today = (new Date).getTime();
