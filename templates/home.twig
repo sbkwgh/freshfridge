@@ -5,5 +5,14 @@
 </head>
 <body>
 	Welcome, you are logged in. <a href="./account/logout">Logout</a>
+	<p>
+		<form action='/api/addProduct' method='POST'>
+			<input name='code' placeholder='Barcode' /><br/>
+			<input name='year' type='number' placeholder='year' />-
+			<input type='number' name='month' placeholder='month' />-
+			<input type='number' name='date' placeholder='date' /><br/>
+			<input type='submit' />
+		</form>
+	</p>
 </body>
 </html>

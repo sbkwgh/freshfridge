@@ -10,6 +10,7 @@ router.post('/login', function(req, res) {
 		function(correct) {
 			if(correct) {
 				res.cookie('loggedIn', 'true', {signed: true});
+				res.cookie('username', req.body.username, {signed: true});
 				res.redirect('/home')
 			} else {
 				res.render('login', {
@@ -25,6 +26,7 @@ router.post('/login', function(req, res) {
 
 router.get('/logout', function(req, res) {
 	res.cookie('loggedIn', false, {signed: true});
+	res.clearCookie('username', {signed: true});
 	res.redirect('/');
 });
 
@@ -51,6 +53,7 @@ router.post('/create', function(req, res) {
 			}
 		} else {
 			res.cookie('loggedIn', true, {signed: true});
+			res.cookie('username', req.body.username, {signed: true});
 			res.redirect('/home')
 		}
 	});
