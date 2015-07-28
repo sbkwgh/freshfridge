@@ -3,13 +3,15 @@
 <head>
 	<title>Fridgething</title>
 </head>
-<body>
-	<form action="/login" method="POST">
+<body> 
+	<h1>Login</h1>
+	<form action="/account/login" method="POST">
 		<input name="username" placeholder="Your username" /><br/>
 		<input type='password' name="password" placeholder="Your password" /><br/>
 		<input type="submit" />
 	</form>
-	<form action="/createAccount" method="POST">
+	<h1>Create</h1>
+	<form action="/account/create" method="POST">
 		<input name="username" placeholder="Your username" /><br/>
 		<input placeholder="Confirm your username" /><br/>
 		<input type='password' name="password" placeholder="Your password" /><br/>
