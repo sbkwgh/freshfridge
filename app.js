@@ -9,7 +9,7 @@ var config = require('./config.js');
 var routes;
 var db;
 
-//Problem here
+
 mongoose.connect('mongodb://localhost/fridgething')
 db = mongoose.connection;
 
