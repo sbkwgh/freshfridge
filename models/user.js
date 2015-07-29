@@ -21,6 +21,10 @@ var UserSchema = mongoose.Schema({
 		type: String,
 		required: true,
 		validate: lengthValidation
+	},
+	phone: {
+		type: String,
+		validate: lengthValidation
 	}
 })
 

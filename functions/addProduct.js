@@ -1,5 +1,7 @@
 var config = require('../config.js');
 
+var Item = require('../models/item.js')
+
 var httpJSON = require('../functions/httpJSON.js');
 var httpsJSON = require('../functions/httpsJSON.js');
 

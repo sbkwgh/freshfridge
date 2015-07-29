@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user.js');
 
+var config = require('../config.js');
+
 //Route to which the form sends
 router.post('/login', function(req, res) {
 	User.checkAccount(
@@ -30,6 +32,14 @@ router.get('/logout', function(req, res) {
 	res.redirect('/');
 });
 
+router.get('/phone', function(req, res) {
+	if(req.query.passCode !== config.passCode) res.json({errors: ['unknown error']);
+	User.findOne({username: req.query.username}, function(err, userFound) {
+		if(err) res.json({errors: ['unknown error']);
+		return res.json({phone: userFound.phone})
+	})
+})
+
 //Route to which the form sends
 router.post('/create', function(req, res) {
 	var newUser = new User({
@@ -57,6 +67,6 @@ router.post('/create', function(req, res) {
 			res.redirect('/home')
 		}
 	});
-})
+});
 
 module.exports = router;

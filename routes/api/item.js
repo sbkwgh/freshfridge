@@ -13,41 +13,50 @@ router.post('/add', function(req, res) {
 	if(!req.signedCookies.loggedIn) {
 		res.json({errors: 'unknown error'});
 	}
-	getProduct(req.body.code, function(err, product) {
-		if(err) {
-			res.json({errors: err});
-		} else {
-			getImageURL(product, function(err, url) {
-				if(err) {
-					res.json({errors: err})
-				} else {
-					var obj = {};
-					//There might not be a URL for this product, you see
-					if(url) {
-						obj.imageurl = url;
-					}
-					obj.name = product;
-					obj.username = req.signedCookies.username;
-					if(req.body.year) {
-						obj.expiryDate = new Date(req.body.year + '-' + req.body.month + '-' + req.body.date).toISOString();
-					}
 
-					addProduct(obj, function(err, product) {
-						if(err) {
-							res.json({
-								errors: err
-							})
-						} else {
-							res.json({
-								success: true,
-								product: product
-							})
-						}
-					})
+	function getImage(product) {
+		getImageURL(product, function(err, url) {
+			if(err) {
+				res.json({errors: err})
+			} else {
+				var obj = {};
+				//There might not be a URL for this product, you see
+				if(url) {
+					obj.imageurl = url;
 				}
-			})
-		}
-	})
+				obj.name = product;
+				obj.username = req.signedCookies.username;
+				if(req.body.year) {
+					obj.expiryDate = new Date(req.body.year + '-' + req.body.month + '-' + req.body.date).toISOString();
+				}
+
+				addProduct(obj, function(err, product) {
+					if(err) {
+						res.json({
+							errors: err
+						})
+					} else {
+						res.json({
+							success: true,
+							product: product
+						})
+					}
+				})
+			}
+		})
+	}
+
+	if(req.body.code) {
+		getProduct(req.body.code, function(err, product) {
+			if(err) {
+				res.json({errors: err});
+			} else {
+				getImage(product)
+			}
+		})
+	} else {
+		getImage(req.body.productName);
+	}
 });
 
 router.get('/', function(req, res) {
@@ -73,11 +82,16 @@ router.post('/remove', function(req, res) {
 })
 
 router.get('/soonExpiring', function(req, res) {
-	if(!req.signedCookies.loggedIn) res.json({errors: ['unknown error']});
+	if(!req.signedCookies.loggedIn || req.body.passCode !== config.passCode) res.json({errors: ['unknown error']});
 	
 	var today = (new Date).getTime();
+	var queryObj = {};
 
-	Item.find({username: req.signedCookies.username}, function(err, items) {
+	if(req.signedCookies.username) {
+		queryObj.username = req.signedCookies.username;
+	}
+
+	Item.find(queryObj, function(err, items) {
 		if(err) res.json({errors: ['unknown error']});
 
 		var returnItems = [];
