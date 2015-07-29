@@ -33,19 +33,29 @@ router.get('/logout', function(req, res) {
 });
 
 router.get('/phone', function(req, res) {
-	if(req.query.passCode !== config.passCode) res.json({errors: ['unknown error']);
+	if(req.query.passCode !== config.passCode) {
+		res.json({errors: ['unknown error']});
+		return;
+	}
 	User.findOne({username: req.query.username}, function(err, userFound) {
-		if(err) res.json({errors: ['unknown error']);
+		if(err) {
+			res.json({errors: ['unknown error']});
+			return;
+		};
 		return res.json({phone: userFound.phone})
 	})
 })
 
 //Route to which the form sends
 router.post('/create', function(req, res) {
-	var newUser = new User({
+	var newUserObj = {
 		username: req.body.username,
-		password: req.body.password
-	});
+		password: req.body.password,
+	}
+	if(req.body.phone) {
+		newUserObj.phone = req.body.phone;
+	}
+	var newUser = new User(newUserObj);
 	newUser.save(function(err) {
 		if(err) {
 			if(err.code === 11000) {
