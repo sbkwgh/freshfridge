@@ -10,7 +10,7 @@ var routes;
 var db;
 
 
-mongoose.connect(process.ENV.URL)
+mongoose.connect('mongodb://admin:pass@ds033569.mongolab.com:33569/heroku_333lzs8c')
 db = mongoose.connection;
 
 app.set('views', './templates');
