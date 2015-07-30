@@ -28,7 +28,7 @@ app.use(express.static('./public'))
 
 db.once('open', function(){
 	console.log('Connected to db successfully');
-	app.listen(5000, function() {
-		console.log('Server started and listening on port 5000');
+	app.listen(process.env.PORT || 5000, function() {
+		console.log('Server started and listening on port ' + process.env.PORT || 5000);
 	});
 })
