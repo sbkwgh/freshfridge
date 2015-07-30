@@ -20,7 +20,6 @@ router.post('/add', function(req, res) {
 			if(err) {
 				res.json({errors: err})
 			} else {
-				console.log(url)
 				var obj = {};
 				//There might not be a URL for this product, you see
 				if(url) {
@@ -67,8 +66,12 @@ router.get('/', function(req, res) {
 	} else {
 		Item.find({username: req.signedCookies.username}, function(err, items) {
 			if(err) res.json({errors: ['unknown error']});
+			var itemsReturn = [];
+			for(var i = 0; i < items.length; ++i) {
+				itemsReturn.push(items[i].toJSON({virtuals:true}))
+			}
 			res.json({
-				items: items
+				items: itemsReturn
 			});
 		});
 	}

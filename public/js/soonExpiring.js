@@ -1,5 +1,5 @@
 function getProducts() {
-	$.get('../api/item', function(data) {
+	$.get('../api/item/soonExpiring', function(data) {
 		if(!data.items.length) {
 			$('#no-products').show();
 		} else {
@@ -36,29 +36,6 @@ $('#products').on('click', '.product .product-delete', function(e) {
 	$.post('../api/item/remove', {
 		_id: id
 	}, function(data) {
-		getProducts();
-	})
-})
-
-$('#addProduct').on('click', function() {
-	var year = $('#year').val();
-	var month = $('#month').val();
-	var date = $('#date').val();
-	var name = $('#name').val();
-
-	if(!name.trim()) return;
-
-	$.post('../api/item/add', {
-		productName: name,
-		year: year,
-		month: month,
-		date: date
-	}, function(data) {
-		console.log(data)
-		$('#year').val('');
-		$('#month').val('');
-		$('#date').val('');
-		$('#name').val('');
 		getProducts();
 	})
 })

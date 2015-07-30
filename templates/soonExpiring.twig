@@ -27,8 +27,8 @@
 
 				<ul class = "nav navbar-nav navbar-right">
 
-					<li class='active'><a href = "/">Home</a></li>
-					<li ><a href = "soonExpiring">Soon expiring</a></li>
+					<li><a href = "/">Home</a></li>
+					<li class='active'><a href = "soonExpiring">Soon expiring</a></li>
 					<li ><a href = "recipes">Recipes</a></li>
 					<li ><a href="/account/logout">Logout</a></li>
 					<li><a href = "" data-toggle="modal"></a></li>
@@ -41,20 +41,8 @@
 	</div>
 
 	 <div id='app' class = "container">	
-		<form id='add-new-product'>
-			Enter product name or barcode, then the expiry date
-			<input name='productName' id='name' placeholder='Product name or barcode' />
-			<div id='add-new-product-expiry'>
-				<input name='year' id='year' type='number' placeholder='year' /> -
-				<input type='number' id='month' name='month' placeholder='month' /> -
-				<input type='number' id='date' name='date' placeholder='date' />
-			</div>
-			<input type='button' id='addProduct' value="Add" />
-		</form>
-
-
 		<div id='no-products'>
-			No items added.
+			No items are going to expire soon. Hooray!
 		</div>
 
 		<div id='products'></div>
@@ -69,7 +57,7 @@
 		
 	<script type="text/javascript" src= "http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script type="text/javascript" src= "js/bootstrap.js"></script>
-	<script type="text/javascript" src="js/landingpage.js"></script>
+	<script type="text/javascript" src="js/soonExpiring.js"></script>
  
  </body>
  </html>

@@ -20,4 +20,22 @@ router.get('/home', function(req, res) {
 	}
 })
 
+router.get('/soonExpiring', function(req, res) {
+	if(req.signedCookies.loggedIn !== 'true') {
+		res.redirect('/')
+	} else {
+		res.render('soonExpiring');
+	}
+})
+
+router.get('/recipes', function(req, res) {
+	if(req.signedCookies.loggedIn !== 'true') {
+		res.redirect('/')
+	} else {
+		res.render('recipes');
+	}
+})
+
+
+
 module.exports = router;

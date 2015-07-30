@@ -25,6 +25,13 @@ router.post('/login', function(req, res) {
 	)
 })
 
+router.get('/login', function(req, res) {
+	res.render('login');
+})
+
+router.get('/create', function(req, res) {
+	res.render('createAccount');
+})
 
 router.get('/logout', function(req, res) {
 	res.cookie('loggedIn', false, {signed: true});
@@ -65,7 +72,7 @@ router.post('/create', function(req, res) {
 					]
 				})
 			} else {
-				res.render('login', {
+				res.render('createAccount', {
 					errors: [
 						'It\'s us, not you. Something went wrong on our end, so try again later.'
 					]

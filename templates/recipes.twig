@@ -5,7 +5,7 @@
 	<meta name= "viewport" content="width=device-width, initial-scale=1.0">
 	<link href= "css/bootstrap.min.css" rel="stylesheet" />
 	<link href= "css/styles.css" rel="stylesheet"/>
-	<link href= "css/landing.css" rel="stylesheet" />
+	<link href= "css/recipes.css" rel="stylesheet" />
 	<link href= "css/flat-ui.min.css" rel="stylesheet">
 
 </head>
@@ -27,9 +27,9 @@
 
 				<ul class = "nav navbar-nav navbar-right">
 
-					<li class='active'><a href = "/">Home</a></li>
-					<li ><a href = "soonExpiring">Soon expiring</a></li>
-					<li ><a href = "recipes">Recipes</a></li>
+					<li><a href = "/">Home</a></li>
+					<li><a href = "soonExpiring">Soon expiring</a></li>
+					<li class='active'><a href = "recipes">Recipes</a></li>
 					<li ><a href="/account/logout">Logout</a></li>
 					<li><a href = "" data-toggle="modal"></a></li>
 
@@ -41,23 +41,12 @@
 	</div>
 
 	 <div id='app' class = "container">	
-		<form id='add-new-product'>
-			Enter product name or barcode, then the expiry date
-			<input name='productName' id='name' placeholder='Product name or barcode' />
-			<div id='add-new-product-expiry'>
-				<input name='year' id='year' type='number' placeholder='year' /> -
-				<input type='number' id='month' name='month' placeholder='month' /> -
-				<input type='number' id='date' name='date' placeholder='date' />
-			</div>
-			<input type='button' id='addProduct' value="Add" />
-		</form>
-
-
 		<div id='no-products'>
-			No items added.
+			No recipes :( Try adding some items first
 		</div>
 
-		<div id='products'></div>
+		<div id='recipes'>
+		</div>
 
 
 		<div class = "navbar navbar-default	 navbar-fixed-bottom">
@@ -66,10 +55,33 @@
 			</div>
 		</div>
 	</div>
-		
+	{% raw %}
+	<script id='recipes-template' type='text/template'>
+		{{#each recipes}}
+			<div class='recipe'>
+				<div class='recipe-title'>{{name}}</div>
+				<div class='recipe-ingredients'>
+					<ul>
+						{{#each ingredients}}
+							<li>{{name}} {{quantity}} {{unit}}</li>
+						{{/each}}
+					</ul>
+				</div>
+				<div class='recipe-method'>
+					<ul>
+						{{#each directions}}
+							<li>{{this}}</li>
+						{{/each}}
+					</ul>
+				</div>
+			</div>
+		{{/each}}
+	</script>
+	{% endraw %}
 	<script type="text/javascript" src= "http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script type="text/javascript" src= "js/bootstrap.js"></script>
-	<script type="text/javascript" src="js/landingpage.js"></script>
+	<script type="text/javascript" src="js/handlebars.js"></script>
+	<script type="text/javascript" src="js/recipes.js"></script>
  
  </body>
  </html>

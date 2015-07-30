@@ -19,7 +19,7 @@ function getRecipeList(ingredients, cb) {
 function getRecipes(recipeList, cb) {
 	var recipes = [];
 	function done() {
-		if(recipes.length === recipeList.total) {
+		if(recipes.length === recipeList.total || recipes.length === 10) {
 			cb(null, recipes);
 		}
 	}
@@ -34,12 +34,21 @@ function getRecipes(recipeList, cb) {
 }
 
 router.get('/ingredients', function(req, res) {
-	if(!req.query.ingredients) res.json({errors: ['ingredient parameter undefined']});
+	if(!req.query.ingredients) {
+		res.json({errors: ['ingredient parameter undefined']});
+		return;
+	}
 	var ingredients = req.query.ingredients;
 	getRecipeList(ingredients, function(err, recipeList) {
-		if(err) res.json({errors: ['unknown error']});
+		if(err) {
+			res.json({errors: ['ingredient parameter undefined']});
+			return;
+		}
 		getRecipes(recipeList, function(err, recipes) {
-			if(err) res.json({errors: ['unknown error']});
+			if(err) {
+				res.json({errors: ['ingredient parameter undefined']});
+				return;
+			}
 			res.json({recipes: recipes})
 		})
 	});
