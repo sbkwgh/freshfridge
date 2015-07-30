@@ -6,7 +6,8 @@
     "express": "^4.13.1",
     "mongoose": "^4.1.0",
     "morgan": "^1.6.1",
-    "twig": "^0.8.2"
+    "twig": "^0.8.2",
+    "yelp": "^0.2.0"
   },
   "description": "a fridge thing",
   "version": "1.0.0",
