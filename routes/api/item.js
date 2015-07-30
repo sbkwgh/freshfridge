@@ -20,10 +20,11 @@ router.post('/add', function(req, res) {
 			if(err) {
 				res.json({errors: err})
 			} else {
+				console.log(url)
 				var obj = {};
 				//There might not be a URL for this product, you see
 				if(url) {
-					obj.imageurl = url;
+					obj.imageURL = url;
 				}
 				obj.name = product;
 				obj.username = req.signedCookies.username;
@@ -47,8 +48,8 @@ router.post('/add', function(req, res) {
 		})
 	}
 
-	if(req.body.code) {
-		getProduct(req.body.code, function(err, product) {
+	if(req.body.productName.match(/[0-9]/)) {
+		getProduct(req.body.productName, function(err, product) {
 			if(err) {
 				res.json({errors: err});
 			} else {
