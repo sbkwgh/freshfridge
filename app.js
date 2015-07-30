@@ -27,8 +27,8 @@ routes = require('./router.js')(app);
 app.use(express.static('./public'))
 
 db.once('open', function(){
-	console.log('Connected to db');
-	app.listen(3000, function() {
-		console.log('Listening on port 3000');
+	console.log('Connected to db successfully');
+	app.listen(5000, function() {
+		console.log('Server started and listening on port 5000');
 	});
 })

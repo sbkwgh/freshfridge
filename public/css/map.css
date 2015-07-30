@@ -1,0 +1,39 @@
+#map {
+	display: inline-block;
+	margin: 0;
+	width: 25rem;
+	height: 25rem;
+	float: left;
+}
+#map-container {
+	display: inline-block;
+	margin: 0;
+	width: 25rem;
+	height: 25rem;
+	float: left;
+}
+
+div #products {
+	padding: 1rem;
+	width: 69rem;
+	float: left;
+	margin: 0 auto;
+	box-sizing: border-box;
+	margin-bottom: 5rem;
+}
+
+@media (max-width: 1000px) {
+	div #products {
+		width: 100%;
+		text-align: center;
+	}
+	#map-container {
+		display: block;
+		width: 100%;
+		text-align: center;
+	}
+	#map {
+		float: none;
+		margin-left: 0 auto;
+	}
+}

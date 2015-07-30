@@ -5,7 +5,8 @@
 	<meta name= "viewport" content="width=device-width, initial-scale=1.0">
 	<link href= "css/bootstrap.min.css" rel="stylesheet" />
 	<link href= "css/styles.css" rel="stylesheet"/>
-	<link href= "css/recipes.css" rel="stylesheet" />
+	<link href= "css/map.css" rel="stylesheet" />
+	<link href= "css/landing.css" rel="stylesheet" />
 	<link href= "css/flat-ui.min.css" rel="stylesheet">
 
 </head>
@@ -29,8 +30,8 @@
 
 					<li><a href = "/">Home</a></li>
 					<li><a href = "soonExpiring">Soon expiring</a></li>
-					<li class='active'><a href = "recipes">Recipes</a></li>
-					<li><a href = "shoppingList">Shopping list</a></li>
+					<li><a href = "recipes">Recipes</a></li>
+					<li class='active'><a href = "shoppingList">Shopping list</a></li>
 					<li ><a href="/account/logout">Logout</a></li>
 					<li><a href = "" data-toggle="modal"></a></li>
 
@@ -42,13 +43,13 @@
 	</div>
 
 	 <div id='app' class = "container">	
+	 	<p>These products have gone past their use-by dates. Here are the shops where you can buy more of them:</p>
+		<div id='map-container'><div id='map'></div></div>
 		<div id='no-products'>
-			No recipes :( Try adding some items first
+			No items are expired. Hooray!
 		</div>
 
-		<div id='recipes'>
-		</div>
-
+		<div id='products'></div>
 
 		<div class = "navbar navbar-default	 navbar-fixed-bottom">
 			<div class = "container">
@@ -56,33 +57,11 @@
 			</div>
 		</div>
 	</div>
-	{% raw %}
-	<script id='recipes-template' type='text/template'>
-		{{#each recipes}}
-			<div class='recipe'>
-				<div class='recipe-title'>{{name}}</div>
-				<div class='recipe-ingredients'>
-					<ul>
-						{{#each ingredients}}
-							<li>{{name}} {{quantity}} {{unit}}</li>
-						{{/each}}
-					</ul>
-				</div>
-				<div class='recipe-method'>
-					<ul>
-						{{#each directions}}
-							<li>{{this}}</li>
-						{{/each}}
-					</ul>
-				</div>
-			</div>
-		{{/each}}
-	</script>
-	{% endraw %}
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_bAecEakNgYHmORtwlNvNxBVU5Dbc1m4"></script>
 	<script type="text/javascript" src= "http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script type="text/javascript" src= "js/bootstrap.js"></script>
 	<script type="text/javascript" src="js/handlebars.js"></script>
-	<script type="text/javascript" src="js/recipes.js"></script>
+	<script type="text/javascript" src="js/map.js"></script>
  
  </body>
  </html>
