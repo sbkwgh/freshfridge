@@ -10,7 +10,7 @@ var routes;
 var db;
 
 
-mongoose.connect('mongodb://localhost/fridgething')
+mongoose.connect(process.ENV.URL)
 db = mongoose.connection;
 
 app.set('views', './templates');
