@@ -1,0 +1,23 @@
+#homeImage {
+	float: left;
+	height: auto;
+}
+
+#jumbo {
+	height: 35rem;
+}
+
+p {
+	margin-bottom: 3rem;
+}
+
+@media (max-width: 520px) {
+	#homeImage {
+		float: none;
+		margin: 0 auto;
+		height: auto;
+	}
+	#jumbo {
+		height: auto;
+	}
+}
