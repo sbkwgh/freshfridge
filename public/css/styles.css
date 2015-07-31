@@ -1,3 +1,9 @@
+@media (max-width: 767px) {
+	#menu-items {
+		width: 100%;
+	}
+}
+
 
 	#tfnewsearch{
 		float:center;
