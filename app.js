@@ -9,8 +9,11 @@ var config = require('./config.js');
 var routes;
 var db;
 
-
-mongoose.connect('mongodb://admin:pass@ds033569.mongolab.com:33569/heroku_333lzs8c')
+if(process.env.USERNAME === 'lenova') {
+	mongoose.connect('mongodb://localhost/fridgething');
+} else {
+	mongoose.connect('mongodb://admin:pass@ds033569.mongolab.com:33569/heroku_333lzs8c');
+}
 db = mongoose.connection;
 
 app.set('views', './templates');
