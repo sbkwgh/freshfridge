@@ -18,8 +18,6 @@ function getRecipes(cb) {
 		$.get('../api/recipes/ingredients?ingredients=' + ingredients, function(data) {
 			var ret = [];
 
-			console.log(data)
-
 			for(var i = 0; i < data.recipes.length; i++) {
 				if(!data.recipes[i].fault) {
 					ret.push(data.recipes[i])
@@ -28,8 +26,7 @@ function getRecipes(cb) {
 
 			var source = $("#recipes-template").html();
 			var template = Handlebars.compile(source);
-			var html = template(data);
-			console.log(html)
+			var html = template({recipes: ret});
 			$('#recipes').html(html);
 		})
 	})

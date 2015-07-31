@@ -6,6 +6,36 @@ p, div {
 	font-family: 'Roboto', sans-serif;
 }
 
+#overlay {
+	position: absolute;
+	z-index: 4;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	background-color: white;
+	opacity: 0.9;
+	right: 0;
+}
+
+#loader {
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	position: absolute;
+	z-index: 5;
+	margin: auto;
+}
+
+#location img {
+	position: absolute;
+	z-index: 1;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	margin: auto;
+}
+
 #menu-items a {
 	color: #1abc9c;
 }
