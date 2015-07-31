@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+	<link href= "../css/bootstrap.min.css" rel="stylesheet" />
+	<link href= "../css/styles.css" rel="stylesheet"/>
+	<link href= "../css/flat-ui.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block links %}
+	<li><a href = "/">Home</a></li>
+	<li><a href = "/account/login">Login</a></li>
+	<li><a href = "/account/createAccount">Sign up</a></li>
+{% endblock %}
+
+{% block content %}
+	<div class="jumbotron text-center">
+	<ul style="margin: 0 auto; width: 70rem;">
+		{% for error in errors %}
+		<li>
+			{{error}}
+		</li>
+		{% endfor %}
+	</ul>
+	<form id="contact_form" action="" method="POST">
+		<div class="row">
+			<label for="name">Your  Name:</label><br />
+			<input id="name" class="input" name="name" type="text" value="" size="30" /><br />
+		</div>
+		<div class="row">
+			<label for="Username">Username:</label><br />
+			<input id="username" class="input" name="username" type="text" value="" size="30" /><br />
+		</div>
+		<div class="row">
+			<label for="password">Password:</label><br />
+			<input id="password" class="input" name="password" type="password" value="" size="30" /><br />
+		</div>
+		<div class="row">
+			<label for="number">Mobile No.</label><br />
+			<input id="number" class="input" name="number" type="text" value="" size="30" /><br />
+		</div>
+		<input id="btn btn-success" type="submit" value="Sign Up" />
+	</form>						
+	</div>
+
+{% endblock %}
+
+
+

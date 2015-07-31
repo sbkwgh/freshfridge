@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+	<link href= "css/landing.css" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+	<div id='no-products'>
+		No items are going to expire soon. Hooray!
+	</div>
+
+	<div id='products'></div>
+{% endblock %}
+
+{% block scripts %}
+	<script type="text/javascript" src="js/soonExpiring.js"></script>
+{% endblock %}
