@@ -18,7 +18,8 @@
 		}
 	#add-new-product input[type='button'] {
 		box-sizing: broder-box;
-	    height: 3.5rem;
+	    height: 3.8rem;
+	  	margin-bottom: 0.2rem;
 		width: 6rem;
 		border: 2px solid green;
 		border-radius: 0.5rem;
