@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
 var config = require('./config.js');
+var swig = require('swig');
 
 var routes;
 var db;
@@ -16,8 +17,10 @@ if(process.env.USERNAME === 'lenova') {
 }
 db = mongoose.connection;
 
+app.engine('html', swig.renderFile);
+
+app.set('view engine', 'html');
 app.set('views', './templates');
-app.set('view engine', 'twig');
 
 app.use(morgan('dev'))
 app.use(bodyParser.json());

@@ -5,8 +5,9 @@
 	<meta name= "viewport" content="width=device-width, initial-scale=1.0">
 	<link href= "css/bootstrap.min.css" rel="stylesheet" />
 	<link href= "css/styles.css" rel="stylesheet"/>
-	<link href= "css/landing.css" rel="stylesheet" />
 	<link href= "css/flat-ui.min.css" rel="stylesheet">
+
+	{% block head %}{% endblock %}
 
 </head>
 <body>
@@ -26,13 +27,14 @@
 
 
 				<ul class = "nav navbar-nav navbar-right">
-
-					<li><a href = "/">Home</a></li>
-					<li class='active'><a href = "soonExpiring">Soon expiring</a></li>
-					<li ><a href = "recipes">Recipes</a></li>
-					<li><a href = "shoppingList">Shopping list</a></li>
-					<li ><a href="/account/logout">Logout</a></li>
-					<li><a href = "" data-toggle="modal"></a></li>
+					{% block links %}
+						<li><a href = "/">Home</a></li>
+						<li ><a href = "soonExpiring">Soon expiring</a></li>
+						<li ><a href = "recipes">Recipes</a></li>
+						<li><a href = "shoppingList">Shopping list</a></li>
+						<li ><a href="/account/logout">Logout</a></li>
+						<li><a href = "" data-toggle="modal"></a></li>
+					{% endblock %}
 
 				</ul>
 
@@ -42,11 +44,8 @@
 	</div>
 
 	 <div id='app' class = "container">	
-		<div id='no-products'>
-			No items are going to expire soon. Hooray!
-		</div>
 
-		<div id='products'></div>
+		{% block content %}{% endblock %}
 
 
 		<div class = "navbar navbar-default	 navbar-fixed-bottom">
@@ -58,7 +57,7 @@
 		
 	<script type="text/javascript" src= "http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script type="text/javascript" src= "js/bootstrap.js"></script>
-	<script type="text/javascript" src="js/soonExpiring.js"></script>
+	{% block scripts %}{% endblock %}
  
  </body>
  </html>
