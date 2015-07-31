@@ -63,6 +63,7 @@
 			<div class='recipe'>
 				<div class='recipe-title'>{{name}}</div>
 				<div class='recipe-ingredients'>
+				<img class='recipe-image-ingredients' src='{{thumb}}' />
 					<ul>
 						{{#each ingredients}}
 							<li>{{name}} {{quantity}} {{unit}}</li>
@@ -70,11 +71,12 @@
 					</ul>
 				</div>
 				<div class='recipe-method'>
-					<ul>
+					<img class='recipe-image-method' src='{{thumb}}' />
+					<ol>
 						{{#each directions}}
 							<li>{{this}}</li>
 						{{/each}}
-					</ul>
+					</ol>
 				</div>
 			</div>
 		{{/each}}

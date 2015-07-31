@@ -16,6 +16,14 @@ function getIngredients(cb) {
 function getRecipes(cb) {
 	getIngredients(function(ingredients) {
 		$.get('../api/recipes/ingredients?ingredients=' + ingredients, function(data) {
+			var ret = [];
+
+			for(var i = 0; i < data.recipes.length; i++) {
+				if(data.recipes[i]) {
+					ret.push(data.recipes[i])
+				}
+			}
+
 			var source = $("#recipes-template").html();
 			var template = Handlebars.compile(source);
 			var html = template(data);
