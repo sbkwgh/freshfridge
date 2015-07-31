@@ -1,4 +1,5 @@
 function getProducts() {
+	console.log('Start get products')
 	$.get('../api/item', function(data) {
 		if(!data.items.length) {
 			$('#no-products').show();
@@ -24,6 +25,7 @@ function getProducts() {
 				"<div class='product-name'>" + product.name + expiresInXDays + "</div></div>";
 			var currentHTML = $('#products').html();
 			currentHTML += productDiv;
+			console.log(productDiv)
 			$('#products').html(currentHTML)
 		}
 	});
