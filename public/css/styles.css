@@ -56,6 +56,14 @@ p, div {
 	}
 }
 
+@media (max-width: 650px) {
+	#header-mobile {
+		width: 100%;
+		padding: 0;
+		margin: 0;
+	}
+}
+
 #logoImage {
     height: 4.5rem;
     width: auto;
