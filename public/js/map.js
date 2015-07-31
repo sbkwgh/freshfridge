@@ -3,13 +3,30 @@ var address;
 function getCoords(cb) {
 		//If the device supports geolocation
 		if(navigator.geolocation) {
+			console.log('here')
 			//Get locations
 			navigator.geolocation.getCurrentPosition(function(obj) {
-				console.log(obj.coords.latitude + ',' + obj.coords.longitude)
-
-				mapCenter = { lat: obj.coords.latitude, lng: obj.coords.longitude}
-				cb(obj.coords.latitude, obj.coords.longitude);
+				console.log('yup')
+				if(obj) {
+					mapCenter = { lat: obj.coords.latitude, lng: obj.coords.longitude}
+					cb(obj.coords.latitude, obj.coords.longitude);
+				} else {
+					console.log('her e again')
+					Notify.notify({
+						message: 'You either have disabled, or don\'t have, location services. No map for you.',
+						title: 'Error',
+						time: 0,
+						location: 'center'
+					})
+				}
 			});
+		} else {
+			Notify.notify({
+				message: 'You either have disabled, or don\'t have, location services. No map for you.',
+				title: 'Error',
+				time: 0,
+				location: 'center'
+			})
 		}
 }
 
@@ -96,6 +113,8 @@ $.get('../api/item/soonExpiring', function(data) {
 
 	if(!expiredProducts.length) {
 		$('#no-products').show();
+		$('p').hide();
+		$('#map-container').hide();
 	} else {
 		$('#no-products').hide();
 	}

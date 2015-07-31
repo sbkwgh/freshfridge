@@ -18,8 +18,10 @@ function getRecipes(cb) {
 		$.get('../api/recipes/ingredients?ingredients=' + ingredients, function(data) {
 			var ret = [];
 
+			console.log(data)
+
 			for(var i = 0; i < data.recipes.length; i++) {
-				if(data.recipes[i]) {
+				if(!data.recipes[i].fault) {
 					ret.push(data.recipes[i])
 				}
 			}
