@@ -39,6 +39,7 @@ $('#products').on('click', '.product .product-delete', function(e) {
 		_id: id
 	}, function(data) {
 		getProducts();
+		location.href = location.href;
 	})
 })
 
@@ -70,6 +71,6 @@ $('#addProduct').on('click', function() {
 		$('#month').val('');
 		$('#date').val('');
 		$('#name').val('');
-		getProducts();
+		location.href = location.href;
 	})
 })
