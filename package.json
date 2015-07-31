@@ -6,6 +6,7 @@
     "express": "^4.13.1",
     "mongoose": "^4.1.0",
     "morgan": "^1.6.1",
+    "nutritionix": "^0.6.1",
     "swig": "^1.4.2",
     "twig": "^0.8.2",
     "yelp": "^0.2.0"

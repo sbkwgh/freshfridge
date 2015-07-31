@@ -1,3 +1,9 @@
+#nutrition {
+	width: 80%;
+	margin: 0 auto;
+	margin-bottom: 2rem;
+}
+
 #recipes {
 	width: 80%;
 	margin: 0 auto;
@@ -35,7 +41,7 @@
 		}
 
 @media (max-width: 700px) {
-	#recipes {
+	#recipes, #nutrition {
 		width: 100%;
 	}
 	#recipes .recipe {

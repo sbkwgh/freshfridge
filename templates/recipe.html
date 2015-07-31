@@ -9,9 +9,25 @@
 		No recipes. Sorry!
 	</div>
 
+	<div id='nutrition'>
+	</div>
+
 	<div id='recipes'></div>
 	{% raw %}
+	<script id='nutrition-template' type="text/template">
+		<h4>Nutrition information</h4>
+		<b>Per 100g:</b>
+		<table>
+			{{#each nutrients}}
+				<tr>
+					<td>{{name}}<td/><td>{{value}} {{unit}}</td>
+				</tr>
+			{{/each}}
+		</table>
+	</script>
+
 	<script id='recipes-template' type='text/template'>
+		<h4>Recipes:</h4>
 		{{#each recipes}}
 			<div class='recipe'>
 				<div class='recipe-title'>{{name}}</div>

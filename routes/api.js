@@ -2,6 +2,11 @@ var express = require('express');
 var router = express.Router();
 var config = require('../config.js');
 
+var nutritionix = require('nutritionix')({
+	appId: '9b3a4047',
+	appKey: '5122ce19b448f0286dbc4c5826602217'
+}, false);
+
 var getProduct = require('../functions/getProduct.js');
 var getImageURL = require('../functions/getImageURL.js');
 var addProduct = require('../functions/addProduct.js');
@@ -65,6 +70,20 @@ router.get('/image', function(req, res, next) {
 			});
 		}
 	})
+})
+
+
+router.get('/nutrition', function(req, res) {
+	if(!req.query.item) {
+		res.json({
+			errors: ['no product term']
+		})
+		return;
+	}
+
+	nutritionix.natural('100g ' + req.query.item).then(function (results){
+		res.json(results)
+	});
 })
 
 module.exports = router;
