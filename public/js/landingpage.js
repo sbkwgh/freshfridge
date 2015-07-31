@@ -19,7 +19,7 @@ function getProducts() {
 
 			var productDiv =
 				"<div class='product'><span class='product-delete glyphicon glyphicon-remove-circle' aria-hidden='true' data-id=" + product._id + "></span>" +
-				"<div class='product-image' style='background-image: url(" + (product.imageURL || '') + ")'>" +
+				"<div class='product-image' data-name='" + product.name + "' style='background-image: url(" + (product.imageURL || '') + ")'>" +
 				"</div>" +
 				"<div class='product-name'>" + product.name + expiresInXDays + "</div></div>";
 			var currentHTML = $('#products').html();
@@ -38,6 +38,15 @@ $('#products').on('click', '.product .product-delete', function(e) {
 	}, function(data) {
 		getProducts();
 	})
+})
+
+$('#products').on('click', '.product .product-image', function(e) {
+	var name = $(e.currentTarget).attr('data-name');
+	window.location.href = 'recipe?ingredient=' + name;
+})
+$('#products').on('click', '.product .product-name', function(e) {
+	var name = $(e.currentTarget).parent().find('.product-image').attr('data-name');
+	window.location.href = 'recipe?ingredient=' + name;
 })
 
 $('#addProduct').on('click', function() {

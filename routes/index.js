@@ -36,6 +36,14 @@ router.get('/recipes', function(req, res) {
 	}
 })
 
+router.get('/recipe', function(req, res) {
+	if(req.signedCookies.loggedIn !== 'true') {
+		res.redirect('/')
+	} else {
+		res.render('recipe');
+	}
+})
+
 router.get('/shoppingList', function(req, res) {
 	if(req.signedCookies.loggedIn !== 'true') {
 		res.redirect('/')
