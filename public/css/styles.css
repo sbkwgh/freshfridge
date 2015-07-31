@@ -1,3 +1,25 @@
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400; 
+}
+p, div {
+	font-family: 'Roboto', sans-serif;
+}
+
+#menu-items a {
+	color: #1abc9c;
+}
+#menu-items a:hover {
+	color: gray;
+}
+
+#home-link {
+	color: #1abc9c;
+}
+#home-link:hover {
+	color: gray;
+}
+
 @media (max-width: 767px) {
 	#menu-items {
 		width: 100%;

@@ -4,10 +4,11 @@
 }
 	#add-new-product input {
 		box-sizing: broder-box;
-		border: 2px solid gray;
+		border: 2px solid #70BD75;
 		border-radius: 0.5rem;
 		padding: 0.2rem;
 		transition: all 0.2s;
+		outline: none;
 	}
 		#add-new-product input:focus {
 			box-sizing: broder-box;
@@ -17,8 +18,9 @@
 		}
 	#add-new-product input[type='button'] {
 		box-sizing: broder-box;
-		background-color: white;
-		border: 2px solid gray;
+	    height: 3.5rem;
+		width: 6rem;
+		border: 2px solid green;
 		border-radius: 0.5rem;
 		padding: 0.2rem;
 		transition: all 0.2s;
@@ -58,22 +60,26 @@
 		box-sizing: border-box;
 		border: 1px solid gray;
 		overflow: hidden;
+		transition: all 0.3s;
 	}
+		#products .product:hover {
+			box-shadow: 0px 3px 6px 0px rgba(50, 50, 50, 0.5);
+		}
 		#products .product .product-delete {
 			position: absolute;
 			display: inline-block;
 			right: 1rem;
 			z-index: 2;
 			top: 1rem;
-			border: 2px solid gray;
-			color: gray;
+			/*border: 2px solid #F37575;
+			color: #F37575;*/
 			background-color: #FFF;
-			border-radius: 2rem;
+			border-radius: 2rem;/*
 			height: 1.5rem;
 			width: 1.5rem;
 			padding: 0;
 			font-size: 2rem;
-			line-height: 1.25rem;
+			line-height: 1.25rem;*/
 			cursor: pointer;
 		}
 		#products .product .product-image {
@@ -95,10 +101,10 @@
 }
 @media (max-width: 600px) {
 	#add-new-product {
-		width: 30rem;
+		width: 31rem;
 	}
 	#add-new-product [name=productName] {
-		width: 28.8rem;
+		width: 30.6rem;
 		margin-bottom: 1rem;
 	}
 }
