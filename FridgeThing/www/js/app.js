@@ -55,11 +55,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/app/search');
 });
 
-app.controller("BarcodeScanController", function($scope, $cordovaBarcodeScanner) {
+app.controller("BarcodeScannerController", function($scope, $cordovaBarcodeScanner) {
 
     $scope.scanBarcode = function() {
         $cordovaBarcodeScanner.scan().then(function(imageData) {
-            alert(imageData.text);
+            var barcode = imageData.text;
+
+            $.getJSON("http://api.upcdatabase.org/json/36e7b66536a06299df71416c1f838029/" + barcode, function (data) {
+              window.alert(data.itemname);
+            });
+
             console.log("Barcode Format -> " + imageData.format);
             console.log("Cancelled -> " + imageData.cancelled);
         }, function(error) {
