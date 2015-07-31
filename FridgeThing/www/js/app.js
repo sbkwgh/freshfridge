@@ -4,10 +4,10 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+var app = angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova']);
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
+app.run(function ($ionicPlatform) {
+  $ionicPlatform.ready (function () {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -20,9 +20,9 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       StatusBar.styleDefault();
     }
   });
-})
+});
 
-.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
   .state('app', {
@@ -48,36 +48,23 @@ angular.module('starter', ['ionic', 'starter.controllers'])
           templateUrl: 'templates/browse.html'
         }
       }
-    })
-
-  .state('app.single', {
-    url: '/playlists/:playlistId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
-      }
     }
-  });
+  );
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/search');
-})
+});
 
-.factory('Camera', ['$q', function($q) {
+app.controller("BarcodeScanController", function($scope, $cordovaBarcodeScanner) {
 
-  return {
-    getPicture: function(options) {
-      var q = $q.defer();
+    $scope.scanBarcode = function() {
+        $cordovaBarcodeScanner.scan().then(function(imageData) {
+            alert(imageData.text);
+            console.log("Barcode Format -> " + imageData.format);
+            console.log("Cancelled -> " + imageData.cancelled);
+        }, function(error) {
+            console.log("An error happened -> " + error);
+        });
+    };
 
-      navigator.camera.getPicture(function(result) {
-        // Do any magic you need
-        q.resolve(result);
-      }, function(err) {
-        q.reject(err);
-      }, options);
-
-      return q.promise;
-    }
-  };
-
-}]);
+});
