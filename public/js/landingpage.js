@@ -7,7 +7,7 @@ function getProducts() {
 			$('#no-products').hide();
 		}
 		var currentHTML = $('#products').html('');
-		for(var i = 0; i < data.items.length; ++i) {
+		for(var i = 0; i < data.items.length; i++) {
 			var product = data.items[i];
 			var expiresInXDays = '';
 
