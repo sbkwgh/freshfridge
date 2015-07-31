@@ -6,6 +6,15 @@ p, div {
 	font-family: 'Roboto', sans-serif;
 }
 
+#password, #username, #number {
+	border: 1px solid gray;
+	padding: 0.25rem;
+	border-radius: 0.25rem;
+}
+#password, #number {
+	margin-bottom: 1rem;
+}
+
 #overlay {
 	display: none;
 	position: absolute;
