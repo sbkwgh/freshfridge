@@ -102,10 +102,10 @@
 }
 @media (max-width: 600px) {
 	#add-new-product {
-		width: 31rem;
+		width: 30rem;
 	}
 	#add-new-product [name=productName] {
-		width: 30.6rem;
+		width: 28.6rem;
 		margin-bottom: 1rem;
 	}
 }
@@ -116,6 +116,9 @@
 	#products .product {
 		width: calc(100% - 10rem);
 		margin: 1rem 5rem;
+	}
+	#add-new-product-expiry #year, #add-new-product-expiry #date {
+		width: 6rem;
 	}
 }
 @media (max-width: 400px) {
