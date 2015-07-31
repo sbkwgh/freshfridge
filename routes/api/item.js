@@ -64,6 +64,7 @@ router.get('/', function(req, res) {
 	if(req.signedCookies.loggedIn !== 'true') {
 		res.json({errors: ['unknown error']});
 	} else {
+		console.log(req.signedCookies.username)
 		Item.find({username: req.signedCookies.username}, function(err, items) {
 			if(err) res.json({errors: ['unknown error']});
 			var itemsReturn = [];
