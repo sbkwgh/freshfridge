@@ -29,6 +29,13 @@ app.use(bodyParser.urlencoded({
 })); 
 app.use(cookieParser(config.cookieSecret));
 
+app.use(function nocache(req, res, next) {
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
+  next();
+})
+
 routes = require('./router.js')(app);
 app.use(express.static('./public'))
 
