@@ -67,6 +67,7 @@
 			box-shadow: 0px 3px 6px 0px rgba(50, 50, 50, 0.5);
 		}
 		#products .product .product-delete {
+			font-size: 2rem;
 			position: absolute;
 			display: inline-block;
 			right: 1rem;
@@ -74,6 +75,8 @@
 			top: 1rem;
 			/*border: 2px solid #F37575;
 			color: #F37575;*/
+			height: 2rem;
+			width: 2rem;
 			background-color: #FFF;
 			border-radius: 2rem;/*
 			height: 1.5rem;
@@ -107,6 +110,10 @@
 	#add-new-product [name=productName] {
 		width: 28.6rem;
 		margin-bottom: 1rem;
+	}
+	#products .product .product-delete {
+		font-size: 3rem;
+		margin-right: 1rem;
 	}
 }
 @media (max-width: 475px) {
