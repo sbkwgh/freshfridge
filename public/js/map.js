@@ -125,7 +125,7 @@ $.get('../api/item/soonExpiring', function(data) {
 		var expiredProduct = expiredProducts[i];
 
 		var productDiv =
-			"<div class='product'><div class='product-delete' data-id=" + expiredProduct._id + ">&times;</div>" +
+			"<div class='product'>" +
 			"<div class='product-image' style='background-image: url(" + (expiredProduct.imageURL || '') + ")'>" +
 			"</div>" +
 			"<div class='product-name'>" + expiredProduct.name + "</div></div>";

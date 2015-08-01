@@ -18,7 +18,7 @@ function getProducts() {
 
 
 			var productDiv =
-				"<div class='product'><div class='product-delete' data-id=" + product._id + ">&times;</div>" +
+				"<div class='product'><span class='product-delete glyphicon glyphicon-remove-circle' aria-hidden='true' data-id=" + product._id + "></span>" +
 				"<div class='product-image' style='background-image: url(" + (product.imageURL || '') + ")'>" +
 				"</div>" +
 				"<div class='product-name'>" + product.name + expiresInXDays + "</div></div>";
