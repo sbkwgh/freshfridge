@@ -1,0 +1,185 @@
+.recipe-cards .recipe-card-full-width {
+	width: 100% !important;
+}
+.recipe-cards .recipe-card-full-width .recipe-card-title {
+    bottom: 1.5rem;
+}
+
+.recipe-cards-title {
+	padding: 0.5rem;
+}
+
+.recipe-cards {
+	width: 100%;
+	height: 10rem;
+	position: relative;
+	left: 0px;
+	overflow-x: visible;
+	overflow-y: visible;
+	transition: all 0.5s;
+	white-space: nowrap;
+}
+	.recipe-card {
+		transition:: all 0.2s;
+		box-sizing: border-box;
+		width: 80%;
+		margin: 0 1.25% 0 0;
+		display: inline-block;
+		height: 10rem;
+		position: relative;
+		background-image: url(http://static.food2fork.com/Bacon2BWrapped2BJalapeno2BPopper2BStuffed2BChicken2B5002B5909939b0e65.jpg);
+		background-size: cover;
+	}
+		.recipe-card:first-child {
+			box-sizing: border-box;
+			width: 90%;
+			margin: 0 2.5% 0 0;
+			display: inline-block;
+			height: 10rem;
+		}
+		.recipe-card:last-child {
+			box-sizing: border-box;
+			width: 90%;
+			margin: 0 0 0 1.25%;
+			display: inline-block;
+			height: 10rem;
+		}
+		.recipe-card-title {
+			position: absolute;
+			bottom: 0.75rem;
+			left: 0.75rem;
+			color: #FFF;
+			width: 100%;
+		}
+		.recipe {
+			box-shadow: inset 0px -6px 5px 0px rgba(0,0,0,0.2);
+			width: 100%;
+			box-sizing: border-box;
+			background-color: #6c6c6c;
+			color: #FFF;
+			position: relative;
+		}
+			.recipe-left-shadow {
+				height: calc(100% + 1rem);
+			    display: inline-block;
+			    position: absolute;
+			    width: 1rem;
+			    left: -0.97rem;
+			    box-shadow: 0px 0px 5px 0px #000;
+			    z-index: 2;
+			    top: -1rem;
+			    background-color: rgb(108, 108, 108);
+			}
+			.recipe-right-shadow {
+				height: calc(100% + 1rem);
+			    display: inline-block;
+				    height: -1rem;
+				    position: absolute;
+				    width: 1rem;
+				    right: -0.97rem;
+				    box-shadow: 0px 0px 5px 0px #000;
+				    z-index: 2;
+				    top: -1rem;
+				    background-color: rgb(108, 108, 108);
+				}
+
+				.recipe-above-arrow-left {
+					top: -1rem;
+				  position: relative;
+				  border-right: 1rem solid transparent;
+				  border-bottom: 1rem solid #6c6c6c;
+				  width: 50%;
+				  box-sizing: border-box;
+				  float: left;
+				}
+				.recipe-above-arrow-left:before, .recipe-above-arrow-right:before {
+				  content: '';
+				  width: 100%;
+				  height: 1px;
+				  display: inline-block;
+				  position: absolute;
+				  bottom: 0px;
+				  box-shadow: 0px 2px 3px 0px #000;
+				}
+				.recipe-above-arrow-left:after {
+				  content: '';
+				  width: 10px;
+				  height: 1.75rem;
+				  display: inline-block;
+				  position: absolute;
+				  right: -01rem;
+				  top: -0.5rem;
+				  transform: rotate(-45deg);
+				  -webkit-transform: rotate(-45deg);
+				  box-shadow: -3px 0px 6px -3px #000;
+				}
+
+				.recipe-above-arrow-right {
+					top: -1rem;
+				  float: right;
+				  position: relative;
+				  width: 50%;
+				  box-sizing: border-box;
+				  border-left: 1rem solid transparent;
+				  border-bottom: 1rem solid #6c6c6c;
+				}
+
+				.recipe-above-arrow-right:after {
+				  content: '';
+				  width: 10px;
+				  height: 1.75rem;
+				  display: inline-block;
+				  position: absolute;
+				  left: -01rem;
+				  top: -0.5rem;
+				  transform: rotate(225deg);
+				  -webkit-transform: rotate(225deg);
+				  box-shadow: -3px 0px 6px -3px #000;
+				}
+					.recipe-arrow:before {
+						content: "";
+						position: absolute;
+						background: #6c6c6c;
+						transform: rotate(45deg);
+						-webkit-transform: rotate(45deg);
+						box-shadow: inset -1px -1px 5px 1px rgba(0,0,0,1);
+						height: 2rem;
+						top: 0.5rem;
+						width: 2rem;
+						left: 0rem;
+					}
+					.recipe-arrow-bar {
+						position: absolute;
+						background-color: #6c6c6c;
+						height: 2px;
+					width: 2rem;
+					bottom: 1rem;
+				}
+			.recipe-header {
+				position: relative;
+				top: -1rem;
+				padding: 1rem 0.75rem;
+				border-bottom: 2px solid gray;
+			}
+				.recipe-header span {
+					cursor: pointer;
+					border-bottom: 1px solid #FFF;
+				}
+				.recipe-header .star {
+					height: 1.1rem;
+					width: 1.1rem;
+					float: right;
+				}
+			.recipe ul {
+				position: relative;
+				top: -1rem;
+				color: #D2D2D2;
+				width: 100%;
+				margin: 0;
+				padding: 0.5rem 0;
+				padding-top: 0.5rem;
+				list-style: none;
+			}
+				.recipe li {
+					padding: 0.125rem 0.75rem;
+				}

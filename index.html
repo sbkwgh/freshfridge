@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<link href='http://fonts.googleapis.com/css?family=Roboto&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="index.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<title>App</title>
+</head>
+<body>
+	<div id='header'>
+		<div id='header-action' class='hidden'>
+			<button>Done</button>
+		</div>
+		<div id='header-icons'>
+			<div class='header-icon header-icon-active' id='header-icon-fridge'><img src='images/fridge.png' /></div>
+			<div class='header-icon' id='header-icon-list'><img src='images/list.png' /></div>
+			<div class='header-icon' id='header-icon-add'><img src='images/add.png' /></div>
+			<div class='header-icon' id='header-icon-recipe'><img src='images/recipe.png' /></div>
+			<div class='header-icon' id='header-icon-more'><img src='images/more.png' /></div>
+		</div>
+	</div>
+	<div id='menu' class='no-visibility'>
+		<ul id='menu-specific'>
+			<li>Edit items</li>
+			<li id='menu-specific-search'>Search</li>
+		</ul>
+		<ul id='menu-general'>
+			<li>Logout</li>
+			<li>Settings</li>
+		</ul>
+	</div>
+	<div id='main-cover' class='no-visibility'></div>
+	<div id='search-cover' class='no-visibility'></div>
+	<div id='add-container' class='add-container-top'>
+		<div id='add'>
+			<div id='add-main'>
+				<img src='images/barcode.png' />
+				<div>Place barcode at camera to scan</div><br/>
+				<input placeholder='Or enter grocery name'/>
+				<input type='date' placeholder='Date of expiry (yyyy-mm-dd)'/>
+			</div>
+			<div id='add-buttons'>
+				<button id='add-buttons-cancel'>Cancel</button>
+				<button id='add-buttons-confirm'>Add item</button>
+			</div>
+		</div>
+	</div>
+	<div id='main'>
+		<div id='search'>
+			<input type='text' placeholder='Search for stuff in your fridge' />
+		</div>
+		<div class='tile-1'>
+			<div class='tile' style='height: 10rem'>
+				<div class='tile-delete'>
+					<span>&times;</span>
+				</div>
+				<div class='tile-image' style='background-image: url(http://www.melissahartfiel.com/wp-content/uploads/2013/04/20130426-1304_untitled0051.jpg)'>
+				</div>
+				<div class='tile-info'>
+					Mince meat | Expires 3 days
+				</div>
+			</div>
+			<div class='tile' style='height:15rem'>
+				<div class='tile-image' style='background-image: url(http://www.melissahartfiel.com/wp-content/uploads/2013/04/20130426-1304_untitled0051.jpg)'>
+				</div>
+				<div class='tile-info'>
+					Mince meat | Expires 3 days
+				</div>
+			</div>
+		</div>
+		<div class='tile-2'>
+			<div class='tile'  style='height:12rem'>
+				<div class='tile-image' style='background-image: url(http://www.melissahartfiel.com/wp-content/uploads/2013/04/20130426-1304_untitled0051.jpg)'>
+				</div>
+				<div class='tile-info'>
+					Mince meat | Expires 3 days
+				</div>
+			</div>
+			<div class='tile' style='height: 13rem'>
+				<div class='tile-image' style='background-image: url(http://www.melissahartfiel.com/wp-content/uploads/2013/04/20130426-1304_untitled0051.jpg)'>
+				</div>
+				<div class='tile-info'>
+					Mince meat | Expires 3 days
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src='fastclick.js'></script>
+	<script type="text/javascript" src='script.js'></script>
+</body>
+</html>
