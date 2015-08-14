@@ -5,8 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<link rel="stylesheet" type="text/css" href="list.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/list.css">
 	<title>App</title>
 </head>
 <body class='body-top-padding'>
@@ -41,86 +41,42 @@
 		</div>
 	</div>
 	<div id='main'>
-		<input id='main-list-input' placeholder='Add items to shopping list'>
-		<div class="list-header">Other items</div>
+		<input id='main-list-input' v-on='keyup: addListItem | key 13' v-model='newListItem.name' placeholder='Add items to shopping list'>
+		<div id='no-items' v-show='!listItems.length && !items.length'>
+			Tap 'Add items to shopping list' to add some items to your shopping list
+		</div>
+		<div class="list-header" v-show='listItems.length'>Shoping list</div>
 		<ul class='main-list'>
-			<li>
-				<div class='strikethrough'></div>
+			<li v-repeat='listItem: listItems'>
+				<div class='strikethrough' v-class='strikethrough-width: listItem.completed'></div>
 				<div class='main-list-checkbox'>
-					<input checked type='checkbox'/>
+					<input v-on='click: toggleCompleted($index, "listItems")' v-attr='checked: listItem.completed' type='checkbox'/>
 					<div></div>
 				</div>
-				<div class='main-list-name'>Cheese</div>
-				<div class='main-list-delete'>
-					Delete
-				</div>
-			</li>
-
-			<li>
-				<div class='strikethrough'></div>
-				<div class='main-list-checkbox'>
-					<input type='checkbox'/>
-					<div></div>
-				</div>
-				<div class='main-list-name'>Cheese</div>
-				<div class='main-list-delete'>
+				<div class='main-list-name'>{{listItem.name}}</div>
+				<div class='main-list-delete' v-on='click: delete($index, "listItems")'>
 					Delete
 				</div>
 			</li>
 		</ul>
-		<div class="list-header">Expired items</div>
+		<div class="list-header" v-show='items.length'>Expired items</div>
 		<ul class='main-list'>
-			<li>
-				<div class='strikethrough'></div>
+			<li v-repeat='item: items'>
+				<div class='strikethrough' v-class='strikethrough-width: item.completed'></div>
 				<div class='main-list-checkbox'>
-					<input type='checkbox'/>
+					<input v-on='click: toggleCompleted($index, "items")' v-attr='checked: item.completed' type='checkbox'/>
 					<div></div>
 				</div>
-				<div class='main-list-name'>Cheese</div>
-				<div class='main-list-delete'>
-					Delete
-				</div>
-			</li>
-
-			<li>
-				<div class='strikethrough'></div>
-				<div class='main-list-checkbox'>
-					<input checked type='checkbox'/>
-					<div></div>
-				</div>
-				<div class='main-list-name'>Cheese</div>
-				<div class='main-list-delete'>
-					Delete
-				</div>
-			</li>
-			<li>
-				<div class='strikethrough'></div>
-				<div class='main-list-checkbox'>
-					<input type='checkbox'/>
-					<div></div>
-				</div>
-				<div class='main-list-name'>Cheese</div>
-				<div class='main-list-delete'>
-					Delete
-				</div>
-			</li>
-
-			<li>
-				<div class='strikethrough'></div>
-				<div class='main-list-checkbox'>
-					<input type='checkbox'/>
-					<div></div>
-				</div>
-				<div class='main-list-name'>Cheese</div>
-				<div class='main-list-delete'>
+				<div class='main-list-name'>{{item.name}}</div>
+				<div class='main-list-delete' v-on='click: delete($index, "items")'>
 					Delete
 				</div>
 			</li>
 		</ul>
 	</div>
-	<script type="text/javascript" src='fastclick.js'></script>
-	<script type="text/javascript" src='hammer.js'></script>
-	<script type="text/javascript" src='swipeout.js'></script>
-	<script type="text/javascript" src='script.js'></script>
+	<script type="text/javascript" src='js/vue.js'></script>
+	<script type="text/javascript" src='js/hammer.js'></script>
+	<script type="text/javascript" src='js/script.js'></script>
+	<script type="text/javascript" src='js/list.js'></script>
 </body>
 </html>

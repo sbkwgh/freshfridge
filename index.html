@@ -5,8 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<link href='http://fonts.googleapis.com/css?family=Roboto&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css" href="index.css">
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<title>App</title>
 </head>
 <body>
@@ -24,7 +24,7 @@
 	</div>
 	<div id='menu' class='no-visibility'>
 		<ul id='menu-specific'>
-			<li>Edit items</li>
+			<li id='menu-specific-edit'>Edit items</li>
 			<li id='menu-specific-search'>Search</li>
 		</ul>
 		<ul id='menu-general'>
@@ -39,12 +39,12 @@
 			<div id='add-main'>
 				<img src='images/barcode.png' />
 				<div>Place barcode at camera to scan</div><br/>
-				<input placeholder='Or enter grocery name'/>
-				<input type='date' placeholder='Date of expiry (yyyy-mm-dd)'/>
+				<input v-model='newItem.name' placeholder='Or enter grocery name'/>
+				<input type='date' v-model='newItem.expiryDate' placeholder='Date of expiry (yyyy-mm-dd)'/>
 			</div>
 			<div id='add-buttons'>
 				<button id='add-buttons-cancel'>Cancel</button>
-				<button id='add-buttons-confirm'>Add item</button>
+				<button id='add-buttons-confirm' v-on='click: addItem'>Add item</button>
 			</div>
 		</div>
 	</div>
@@ -52,43 +52,31 @@
 		<div id='search'>
 			<input type='text' placeholder='Search for stuff in your fridge' />
 		</div>
-		<div class='tile-1'>
-			<div class='tile' style='height: 10rem'>
-				<div class='tile-delete'>
-					<span>&times;</span>
-				</div>
-				<div class='tile-image' style='background-image: url(http://www.melissahartfiel.com/wp-content/uploads/2013/04/20130426-1304_untitled0051.jpg)'>
-				</div>
-				<div class='tile-info'>
-					Mince meat | Expires 3 days
-				</div>
+			<div id='no-items' v-show='!items.length'>
+				It looks like you haven't got any items in your fridge.
+				<br/>Click the + icon to add some
 			</div>
-			<div class='tile' style='height:15rem'>
-				<div class='tile-image' style='background-image: url(http://www.melissahartfiel.com/wp-content/uploads/2013/04/20130426-1304_untitled0051.jpg)'>
-				</div>
-				<div class='tile-info'>
-					Mince meat | Expires 3 days
-				</div>
-			</div>
+			<template v-repeat='item : items'>
+				<div class='tile' style='{{item.style}}'>
+					<div class='tile-delete' v-show='isEditing'>
+							<span v-on='click: deleteItem($index)'>&times;</span>
+						</div>
+						<div class='tile-image' style='background-image: url({{item.url}})'>
+						</div>
+						<div class='tile-info'>
+							<div class='tile-info-name'>
+								{{item.name}}
+							</div>
+							<div class='tile-info-expiry'>
+								{{item.expiry | daysUntilExpiry}}
+							</div>
+						</div>
+					</div>
+					<br v-show='$index % 2' clear='all'/>
+			</template>
 		</div>
-		<div class='tile-2'>
-			<div class='tile'  style='height:12rem'>
-				<div class='tile-image' style='background-image: url(http://www.melissahartfiel.com/wp-content/uploads/2013/04/20130426-1304_untitled0051.jpg)'>
-				</div>
-				<div class='tile-info'>
-					Mince meat | Expires 3 days
-				</div>
-			</div>
-			<div class='tile' style='height: 13rem'>
-				<div class='tile-image' style='background-image: url(http://www.melissahartfiel.com/wp-content/uploads/2013/04/20130426-1304_untitled0051.jpg)'>
-				</div>
-				<div class='tile-info'>
-					Mince meat | Expires 3 days
-				</div>
-			</div>
-		</div>
-	</div>
-	<script type="text/javascript" src='fastclick.js'></script>
-	<script type="text/javascript" src='script.js'></script>
+	<script type="text/javascript" src='js/vue.js'></script>
+	<script type="text/javascript" src='js/script.js'></script>
+	<script type="text/javascript" src='js/index.js'></script>
 </body>
 </html>

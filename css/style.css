@@ -1,30 +1,50 @@
 /*
 Warning red: #D24D57
 Success green: #26A65B
-Theme green: #87D37C
+Theme green: #7AD86C
 Background gray: #E3E3E1
 Default gray: #848484
 */
 
 .star {
 	cursor: pointer;
-	background-image: url('images/star.png');
+	background-image: url('../images/star.png');
 	transition: all 0.2s;
-	height: 1rem;
-	width: 1rem;
+	height: 1.3rem;
+	width: 1.3rem;
 	display: inline-block;
 	background-size: cover;
 }
 	.star:hover {
-		background-image: url('images/starHover.png')
+		background-image: url('../images/starHover.png')
 	}
 	.star:focus, .star .star-fill {
-		background-image: url('images/starFill.png');
-		height: 1rem;
-		width: 1rem;
+		background-image: url('../images/starFill.png');
+		height: 1.3rem;
+		width: 1.3rem;
 		display: inline-block;
 		background-size: cover;
 	}
+
+.cross {
+	height: 1.3rem;
+	width: 1.3rem;
+	display: inline-block;
+	cursor: pointer;
+	position: relative;
+}
+	.cross:before {
+		transition: all 0.2s;
+		content: '\D7';
+		display: inline-block;
+		position: absolute;
+		top: -0.9rem;
+		color: #929292;
+		font-size: 2.6rem;
+	}
+		.cross:hover:before {
+			text-shadow: 0px 0px 3px #929292;
+		}
 
 .no-visibility {
 	opacity: 0;
@@ -60,7 +80,7 @@ html, body {
 	z-index: 5;
 	position: fixed;
 	/*85BC5E*/
-	background-color: rgb(111, 223, 125);
+	background-color: #7AD86C;
 	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
 	#header-action {
@@ -77,14 +97,9 @@ html, body {
 			border-radius: 0.2rem;
 			transition: all 0.2s;
 		}
-			#header-action button:hover {
-				cursor: pointer;
-				color: #85BC5E;
-				background-color: #FFF;
-				border: 2px solid #FFF;
-				font-size: 1.25rem;
-				border-radius: 0.2rem;
-			}
+		#header-action button {
+			box-shadow: none !important;
+		}
 
 	.header-icon {
 		border-radius: 3px;
@@ -231,7 +246,7 @@ html, body {
 		width: 100%;
 		text-align: center;
 	}
-		#add-buttons button {
+		#add-buttons button, #header-action button {
 			box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
 			width: 49%;
 			margin: 0;
@@ -244,19 +259,18 @@ html, body {
 			border: none;
 			background-color: #848484;
 		}
-			#add-buttons button:first-child {
-				margin-right: 0.25%;
+			#add-buttons button {
 				background-color: #848484;
 			}	
 				#add-buttons button:first-child:hover {
 					box-shadow: 0px 0px 8px 1px rgba(132, 132, 132, 1);
 				}
-			#add-buttons button:last-child {
+			#add-buttons button:last-child, #header-action button {
 				margin-left: 0.25%;
 				background-color: #26A65B;
 			}
-				#add-buttons button:last-child:hover {
-					box-shadow: 0px 0px 8px 1px rgba(38, 166, 91, 1);
+				#add-buttons button:last-child:hover, #header-action button:hover {
+					box-shadow: 0px 0px 8px 1px rgba(38, 166, 91, 1) !important;
 				}
 #main {
 	background-color: #E3E3E1;
@@ -266,3 +280,18 @@ html, body {
 	overflow-x: hidden;
 	-webkit-overflow-scrolling: touch;
 }
+
+	#no-items {
+		position: relative;
+		transform: translateY(50%);
+		-webkit-transform: translateY(50%);
+		top: calc(25%);
+		margin: 0px auto;
+		width: 17rem;
+		text-align: center;
+		font-size: 1.125rem;
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		user-select: none;
+		cursor: default;
+	}
