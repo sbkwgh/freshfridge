@@ -1,3 +1,22 @@
+#search {
+	height: 3rem;
+	box-sizing: border-box;
+	padding-top: 0.75em;
+	position: relative;
+	top: -3rem;
+}
+	#search input {
+		width: calc(100% - 3rem);
+		margin: 0px auto;
+		display: block;
+		height: 2rem;
+		padding: 0.25rem 0.5rem;
+		border-radius: 3rem;
+		border: 2px solid gray;
+		box-sizing: border-box;
+	}
+
+
 .tile {
 	position: relative;
 	display: inline-block;

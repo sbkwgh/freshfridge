@@ -6,33 +6,36 @@
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<link href='http://fonts.googleapis.com/css?family=Roboto&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/list.css">
+	<link rel="stylesheet" type="text/css" href="css/recipe.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<title>App</title>
 </head>
 <body>
 	<div id='header'>
-		<div id='header-action' class='hidden'>
-			<button>Done</button>
+		<div id='header-action' v-show='hidden: display.isEditing'>
+			<button v-on='click: doneEditing'>Done</button>
 		</div>
-		<div id='header-icons'>
-			<div class='header-icon header-icon-active' id='header-icon-fridge'><img src='images/fridge.png' /></div>
-			<div class='header-icon' id='header-icon-list'><img src='images/list.png' /></div>
+		<div id='header-icons' v-show='hidden: !display.isEditing'>
+			<div class='header-icon' v-class='header-icon-active: currentView === "fridge"' v-on='click: changeView("fridge")' id='header-icon-fridge'><img src='images/fridge.png' /></div>
+			<div class='header-icon' id='header-icon-list'  v-class='header-icon-active: currentView === "list"' v-on='click: changeView("list")'><img src='images/list.png' /></div>
 			<div class='header-icon' id='header-icon-add'><img src='images/add.png' /></div>
-			<div class='header-icon' id='header-icon-recipe'><img src='images/recipe.png' /></div>
-			<div class='header-icon' id='header-icon-more'><img src='images/more.png' /></div>
+			<div class='header-icon' id='header-icon-recipe' v-class='header-icon-active: currentView === "recipe"' v-on='click: changeView("recipe")'><img src='images/recipe.png' /></div>
+			<div class='header-icon' id='header-icon-more' v-on='click: toggleMenu'><img src='images/more.png' /></div>
 		</div>
 	</div>
-	<div id='menu' class='no-visibility'>
-		<ul id='menu-specific'>
-			<li id='menu-specific-edit'>Edit items</li>
-			<li id='menu-specific-search'>Search</li>
+	<div id='menu' v-class='no-visibility: !display.menuVisible'>
+		<ul v-if='menuItems.length' id='menu-specific'>
+			<template v-repeat='menuItem: menuItems'>
+				<li id='{{menuItem.id}}' v-on='click: menuEvent(menuItem.event)'>{{menuItem.content}}</li>
+			</template>
 		</ul>
 		<ul id='menu-general'>
 			<li>Logout</li>
 			<li>Settings</li>
 		</ul>
 	</div>
-	<div id='main-cover' class='no-visibility'></div>
+	<div id='main-cover' v-on='click: toggleMenu' v-class='no-visibility: !display.menuVisible'></div>
 	<div id='search-cover' class='no-visibility'></div>
 	<div id='add-container' class='add-container-top'>
 		<div id='add'>
@@ -40,43 +43,192 @@
 				<img src='images/barcode.png' />
 				<div>Place barcode at camera to scan</div><br/>
 				<input v-model='newItem.name' placeholder='Or enter grocery name'/>
-				<input type='date' v-model='newItem.expiryDate' placeholder='Date of expiry (yyyy-mm-dd)'/>
+				<select v-model='newItem.year'>
+					<option disabled selected>Year</option>
+					<option value="2030">2030</option>
+					<option value="2029">2029</option>
+					<option value="2028">2028</option>
+					<option value="2027">2027</option>
+					<option value="2026">20126</option>
+					<option value="2025">2025</option>
+					<option value="2024">2024</option>
+					<option value="2023">2023</option>
+					<option value="2022">2022</option>
+					<option value="2021">2021</option>
+					<option value="2020">2020</option>
+					<option value="2019">2019</option>
+					<option value="2018">2018</option>
+					<option value="2017">2017</option>
+					<option value="2016">2016</option>
+					<option value="2015">2015</option>
+					<option value="2014">2014</option>
+					<option value="2013">2013</option>
+					<option value="2012">2012</option>
+					<option value="2011">2011</option>
+					<option value="2010">2010</option>
+				</select> 
+				<select v-model='newItem.month'>
+					<option disabled selected>Month</option>
+					<option value="01">January</option>
+					<option value="02">February</option>
+					<option value="03">March</option>
+					<option value="04">April</option>
+					<option value="05">May</option>
+					<option value="06">June</option>
+					<option value="07">July</option>
+					<option value="08">August</option>
+					<option value="09">September</option>
+					<option value="010">October</option>
+					<option value="011">November</option>
+					<option value="012">December</option>
+				</select> 
+				<select v-model='newItem.day'>
+					<option disabled selected>Day</option>
+					<option value="01">1</option>
+					<option value="02">2</option>
+					<option value="03">3</option>
+					<option value="04">4</option>
+					<option value="05">5</option>
+					<option value="06">6</option>
+					<option value="07">7</option>
+					<option value="08">8</option>
+					<option value="09">9</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+					<option value="13">13</option>
+					<option value="14">14</option>
+					<option value="15">15</option>
+					<option value="16">16</option>
+					<option value="17">17</option>
+					<option value="18">18</option>
+					<option value="19">19</option>
+					<option value="20">20</option>
+					<option value="21">21</option>
+					<option value="22">22</option>
+					<option value="23">23</option>
+					<option value="24">24</option>
+					<option value="25">25</option>
+					<option value="26">26</option>
+					<option value="27">27</option>
+					<option value="28">28</option>
+					<option value="29">29</option>
+					<option value="30">30</option>
+					<option value="31">31</option>
+				</select>
 			</div>
 			<div id='add-buttons'>
-				<button id='add-buttons-cancel'>Cancel</button>
+				<button id='add-buttons-cancel' v-on='click: cancelAddItem'>Cancel</button>
 				<button id='add-buttons-confirm' v-on='click: addItem'>Add item</button>
 			</div>
 		</div>
 	</div>
 	<div id='main'>
+		<component is='{{currentView}}'></component>
+	</div>
+
+	<script type='text/template' id='fridgeTemplate'>
 		<div id='search'>
 			<input type='text' placeholder='Search for stuff in your fridge' />
 		</div>
-			<div id='no-items' v-show='!items.length'>
-				It looks like you haven't got any items in your fridge.
-				<br/>Click the + icon to add some
-			</div>
-			<template v-repeat='item : items'>
-				<div class='tile' style='{{item.style}}'>
-					<div class='tile-delete' v-show='isEditing'>
-							<span v-on='click: deleteItem($index)'>&times;</span>
+		<div id='no-items' v-show='!items.length'>
+			It looks like there are no items in your fridge.
+			<br/>Click the + icon to add some
+		</div>
+		<template v-repeat='item : items'>
+			<div class='tile' style='{{item.style}}'>
+				<div class='tile-delete' v-show='isEditing'>
+						<span v-on='click: deleteItem($index)'>&times;</span>
+					</div>
+					<div class='tile-image' style='background-image: url({{item.url}})'>
+					</div>
+					<div class='tile-info'>
+						<div class='tile-info-name'>
+							{{item.name}}
 						</div>
-						<div class='tile-image' style='background-image: url({{item.url}})'>
-						</div>
-						<div class='tile-info'>
-							<div class='tile-info-name'>
-								{{item.name}}
-							</div>
-							<div class='tile-info-expiry'>
-								{{item.expiry | daysUntilExpiry}}
-							</div>
+						<div class='tile-info-expiry'>
+							{{item.expiry | daysUntilExpiry}}
 						</div>
 					</div>
-					<br v-show='$index % 2' clear='all'/>
-			</template>
+				</div>
+				<br v-show='$index % 2' clear='all'/>
+		</template>
+	</script>
+
+	<script type='text/template' id='listTemplate'>
+		<input id='main-list-input' v-on='keyup: addListItem | key 13' v-model='newListItem.name' placeholder='Add items to shopping list'>
+		<div id='no-items' v-show='!listItems.length && !items.length'>
+			Tap 'Add items to shopping list' to add some items to your shopping list
 		</div>
+		<div class="list-header" v-show='listItems.length'>Shoping list</div>
+		<ul class='main-list'>
+			<li style='{{listItem.style}}' v-repeat='listItem: listItems'>
+				<div class='main-list-checkbox'>
+					<input v-on='click: toggleCompleted($index, "listItems")' v-attr='checked: listItem.completed' type='checkbox'/>
+					<div></div>
+				</div>
+				<div class='main-list-name'>{{listItem.name}}</div>
+				<div class='main-list-delete' v-on='click: delete($index, "listItems")'>
+					Delete
+				</div>
+				<div class='strikethrough' v-class='strikethrough-width: listItem.completed'></div>
+			</li>
+		</ul>
+		<div class="list-header" v-show='items.length'>Expired items</div>
+		<ul class='main-list'>
+			<li v-repeat='item: items'>
+				<div class='strikethrough' v-class='strikethrough-width: item.completed'></div>
+				<div class='main-list-checkbox'>
+					<input v-on='click: toggleCompleted($index, "items")' v-attr='checked: item.completed' type='checkbox'/>
+					<div></div>
+				</div>
+				<div class='main-list-name'>{{item.name}}</div>
+				<div class='main-list-delete' v-on='click: delete($index, "items")'>
+					Delete
+				</div>
+			</li>
+		</ul>
+	</script>
+
+	<script type="text/template" id='recipeTemplate'>
+		<template v-repeat='recipeCategory: recipeCategories'>
+			<div class='recipe-cards-title' id='{{$index}}'>{{recipeCategory.title}}</div>
+				<div class='recipe-cards'>
+					<template v-repeat='recipeCard: recipeCategory.recipeCards'>
+						<div class='recipe-card' v-on='click: toggleRecipeCard($index, $event)' style='background-image: url({{recipeCard.image}})'>
+							<div class='recipe-card-title'>
+								{{recipeCard.title}}
+							</div>
+						</div>
+					</template>
+				</div>
+			</div>
+			<div class='recipe' v-class='recipe-hidden: hideRecipe'>
+				<div class='recipe-left-shadow'></div>
+				<div class='recipe-right-shadow'></div>
+				<div class='recipe-above-arrow-left'></div>
+				<div class='recipe-above-arrow-right'></div>
+				<div class='recipe-header'>
+					<span class='recipe-title' v-on='click: recipeUrl'>Get full instructions</span>
+					<div class='recipe-header-right'>
+						<div class='star'></div>
+						<div class='cross' v-on='click: closeRecipeCard($event)'></div>
+					</div>
+					<br clear='all' />
+				</div>
+				<ul v-repeat='ingredient: ingredients'>
+					<li>{{ingredient}}</li>
+				</ul>
+			</div>
+		</template>
+	</script>
+
+	<script type="text/javascript" src='js/hammer.js'></script>
 	<script type="text/javascript" src='js/vue.js'></script>
 	<script type="text/javascript" src='js/script.js'></script>
-	<script type="text/javascript" src='js/index.js'></script>
+	<script type="text/javascript" src='js/fridgeView.js'></script>
+	<script type="text/javascript" src='js/listView.js'></script>
+	<script type="text/javascript" src='js/recipeView.js'></script>
+	<script type="text/javascript" src='js/app.js'></script>
 </body>
 </html>

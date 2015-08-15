@@ -70,35 +70,3 @@ var store = {
  		localStorage.setItem(name, JSON.stringify(items));
  	}
  };
-
-
-//Menu show/hide functionality
-document.querySelector('#header-icon-more').addEventListener('click', function(event) {
-	document.querySelector('#main-cover').classList.toggle('no-visibility');
-	document.querySelector('#menu').classList.toggle('no-visibility');
-});
-document.querySelector('#main-cover').addEventListener('click', function(event) {
-	document.querySelector('#menu').classList.toggle('no-visibility');
-	this.classList.toggle('no-visibility');
-});
-
-//Icon link functionality
-document.querySelector('#header-icon-fridge').addEventListener('click', function(event) {
-	location.href = 'index.html'
-});
-document.querySelector('#header-icon-list').addEventListener('click', function(event) {
-	location.href = 'list.html'
-});
-document.querySelector('#header-icon-recipe').addEventListener('click', function(event) {
-	location.href = 'recipe.html'
-});
-
-//Add page show/hide functionality
-document.querySelector('#header-icon-add').addEventListener('click', function() {
-	document.querySelector('#main').classList.toggle('blur');
-	if(document.querySelector('#add-container').style.top === '3rem') {
-		document.querySelector('#add-container').style.top = '-100%';
-	} else {
-		document.querySelector('#add-container').style.top = '3rem';
-	}
-});	

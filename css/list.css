@@ -20,6 +20,7 @@ div .delete-right {
 	padding: 0 0.5rem;
 	margin: 1rem 1rem 0.5rem 1rem;
 	border-radius: 0.15rem;
+	margin-top: 4rem;
 }
 
 .list-header {
@@ -34,6 +35,9 @@ div .delete-right {
 	padding: 0rem;
 	background-color: #FFF;
 }
+	.main-list:last-child {
+		margin-bottom: 1rem;
+	}
 	.main-list li {
 		overflow: hidden;
 		position: relative;

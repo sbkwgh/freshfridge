@@ -165,22 +165,6 @@ html, body {
 		border-bottom: 1px solid gray;
 	}
 
-#search {
-	height: 3rem;
-	box-sizing: border-box;
-	padding-top: 0.75em;
-}
-	#search input {
-		width: calc(100% - 3rem);
-		margin: 0px auto;
-		display: block;
-		height: 2rem;
-		padding: 0.25rem 0.5rem;
-		border-radius: 3rem;
-		border: 2px solid gray;
-		box-sizing: border-box;
-	}
-
 #main-cover {
 	height: calc(100% - 3rem);
 	top: 3rem;
@@ -240,6 +224,13 @@ html, body {
 			margin: 0.25rem 0;
 			padding: 0.25rem;
 		}
+		#add-main select {
+			width: 30%;
+			font-family: "Roboto";
+			border: 2px solid gray;
+			border-radius: 0.2rem;
+			font-size: 1rem;
+		}
 	#add-buttons {
 		height: 2.5rem;
 		margin: 1.25rem 0 0 0;
@@ -274,7 +265,7 @@ html, body {
 				}
 #main {
 	background-color: #E3E3E1;
-	height: 100%;
+	height: calc(100%);
 	transition: filter 0.2s;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -285,7 +276,7 @@ html, body {
 		position: relative;
 		transform: translateY(50%);
 		-webkit-transform: translateY(50%);
-		top: calc(25%);
+		top: calc(20%);
 		margin: 0px auto;
 		width: 17rem;
 		text-align: center;
