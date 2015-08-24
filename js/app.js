@@ -26,8 +26,8 @@ var app = new Vue({
 	},
 	created: function() {
 		this.$on('menuItems', function(menuItems) {
-			this.menuItems = menuItems
-		})
+			this.menuItems = menuItems;
+		});
 	},
 	components: {
 		fridge: fridgeView,
@@ -38,22 +38,26 @@ var app = new Vue({
 		addItem: function() {
 			if(!this.newItem.name.trim()) return;
 			var newItem = {
-				url: 'http://www.melissahartfiel.com/wp-content/uploads/2013/04/20130426-1304_untitled0051.jpg',
+				imageURL: 'http://www.melissahartfiel.com/wp-content/uploads/2013/04/20130426-1304_untitled0051.jpg',
 				name: this.newItem.name.trim(),
-				expiry: new Date(this.newItem.year + '-' + this.newItem.month + '-' + this.newItem.day)
-			}
+				expiryDate: new Date(this.newItem.year + '-' + this.newItem.month + '-' + this.newItem.day)
+			};
 
-			store.post('items', newItem);
+			store.add('items', newItem);
 			this.$broadcast('itemAdded', newItem);
 
 			this.newItem.name = '';
-			this.newItem.expiryDate = '';
+			this.newItem.day = '';
+			this.newItem.month = '';
+			this.newItem.year = '';
 
 			$('#header-icon-add', 1).click();
 		},
 		cancelAddItem: function() {
 			this.newItem.name = '';
-			this.newItem.expiryDate = '';
+			this.newItem.day = '';
+			this.newItem.month = '';
+			this.newItem.year = '';
 
 			$('#header-icon-add', 1).click();
 		},
@@ -68,7 +72,7 @@ var app = new Vue({
 			this.$broadcast('toggleIsEditing');
 		},
 		menuEvent: function(event) {
-			this[event]()
+			this[event]();
 		},
 		toggleMenu: function() {
 			this.display.menuVisible = !this.display.menuVisible;
@@ -80,12 +84,12 @@ var app = new Vue({
 });
 
 window.onload = function() {
-	var view = (location.hash.slice(1) ? location.hash.slice(1) : 'fridge')
+	var view = (location.hash.slice(1) ? location.hash.slice(1) : 'fridge');
 
 	app.currentView = view;
-}
+};
 window.onhashchange = function() {
-	var view = (location.hash.slice(1) ? location.hash.slice(1) : 'fridge')
+	var view = (location.hash.slice(1) ? location.hash.slice(1) : 'fridge');
 
 	app.currentView = view;
-}
+};

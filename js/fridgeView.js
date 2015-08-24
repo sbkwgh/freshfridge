@@ -33,10 +33,14 @@ var fridgeView = {
 	data: function() {	
 		return {
 			isEditing: false,
-			items: store.get('items')
+			items: []
 		};
 	},
 	created: function() {
+		var self = this;
+		store.get('items', function(items) {
+			self.items = items;
+		});
 		this.$dispatch('menuItems', [
 			{
 				id: 'menu-specific-edit',
@@ -58,7 +62,7 @@ var fridgeView = {
 	},
 	methods: {
 		deleteItem: function(index) {
-			store.delete('items', index);
+			store.remove('items', index);
 			this.items.$remove(index);
 		}
 	}

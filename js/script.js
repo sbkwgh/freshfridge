@@ -37,7 +37,13 @@ function $(selectorOrParentSelector, returnOneOrChildSelector, returnOne) {
 }
 
 var webSQL = {
-	db: null,
+	db: function() {
+		if(!this.db.db) {
+			this.openDb();
+			this.createTable();
+		}
+		return this.db.db;
+	},
 	onError: function(tx, err) {
 		console.log(err);
 	},
@@ -52,17 +58,17 @@ var webSQL = {
 			return;
 		}
 	
-		this.db = openDatabase('store', 1, 'database for the app', dbSize);
+		this.db.db = openDatabase('store', 1, 'database for the app', dbSize);
 	},
 	createTable: function() {
-		var db = this.db;
+		var db = this.db();
 		
 		db.transaction(function(tx) {
 			tx.executeSql('CREATE TABLE IF NOT EXISTS items(ID INTEGER PRIMARY KEY ASC, name TEXT, imageURL TEXT, expiryDate DATETIME)', []);
 		});
 	},
 	add: function(obj) {
-		var db = this.db;
+		var db = this.db();
 		
 		db.transaction(function(tx) {
 			tx.executeSql(
@@ -74,7 +80,7 @@ var webSQL = {
 		});
 	},
 	get: function(cb) {
-		var db = this.db;
+		var db = this.db();
 		
 		function success(tx, results) {
 			var items = [];
@@ -96,7 +102,7 @@ var webSQL = {
 		});
 	},
 	remove: function(index) {
-		var db = this.db;
+		var db = this.db();
 		
 		db.transaction(function(tx) {
 			tx.executeSql(
@@ -108,7 +114,7 @@ var webSQL = {
 		});
 	},
 	update: function(index, item) {
-		var db = this.db;
+		var db = this.db();
 		
 		db.transaction(function(tx) {
 			tx.executeSql(
@@ -121,11 +127,6 @@ var webSQL = {
 	}
 };
 var store = {
-	init: function() {
-      
-		this.webSQL.openDb();
-		this.webSQL.createTable();
-	},
 	get: function(name, cb) {
 		console.log('get ' + name);
 

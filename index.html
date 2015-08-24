@@ -140,14 +140,14 @@
 				<div class='tile-delete' v-show='isEditing'>
 						<span v-on='click: deleteItem($index)'>&times;</span>
 					</div>
-					<div class='tile-image' style='background-image: url({{item.url}})'>
+					<div class='tile-image' style='background-image: url({{item.imageURL}})'>
 					</div>
 					<div class='tile-info'>
 						<div class='tile-info-name'>
 							{{item.name}}
 						</div>
 						<div class='tile-info-expiry'>
-							{{item.expiry | daysUntilExpiry}}
+							{{item.expiryDate | daysUntilExpiry}}
 						</div>
 					</div>
 				</div>
@@ -168,7 +168,7 @@
 					<div></div>
 				</div>
 				<div class='main-list-name'>{{listItem.name}}</div>
-				<div class='main-list-delete' v-on='click: delete($index, "listItems")'>
+				<div class='main-list-delete' v-on='click: remove($index, "listItems")'>
 					Delete
 				</div>
 				<div class='strikethrough' v-class='strikethrough-width: listItem.completed'></div>
@@ -183,7 +183,7 @@
 					<div></div>
 				</div>
 				<div class='main-list-name'>{{item.name}}</div>
-				<div class='main-list-delete' v-on='click: delete($index, "items")'>
+				<div class='main-list-delete' v-on='click: remove($index, "items")'>
 					Delete
 				</div>
 			</li>

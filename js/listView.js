@@ -8,11 +8,11 @@ mainHammer.on('swipeleft tap', function(ev) {
 
 	if(tagName === 'div' && parentTagName === 'li') {
 		var liItem = ev.target.parentElement;
-		$(liItem, '.main-list-delete', 1).classList.add('delete-right')
+		$(liItem, '.main-list-delete', 1).classList.add('delete-right');
 	} else if(tagName === 'li') {
-		$(ev.target, '.main-list-delete', 1).classList.add('delete-right')
+		$(ev.target, '.main-list-delete', 1).classList.add('delete-right');
 	}
-})
+});
 mainHammer.on('swiperight tap', function(ev) {
 		var tagName = ev.target.tagName.toLowerCase();
 		var parentTagName = ev.target.parentElement.tagName.toLowerCase();
@@ -20,17 +20,30 @@ mainHammer.on('swiperight tap', function(ev) {
 		if(tagName === 'div' && parentTagName === 'li') {
 			var liItem = ev.target.parentElement;
 			if(!ev.target.classList.contains('main-list-delete')) {
-				$(liItem, '.main-list-delete', 1).classList.remove('delete-right')
+				$(liItem, '.main-list-delete', 1).classList.remove('delete-right');
 			}
 		} else if(tagName === 'li') {
-			$(ev.target, '.main-list-delete', 1).classList.remove('delete-right')
+			$(ev.target, '.main-list-delete', 1).classList.remove('delete-right');
 		}
-})
+});
 
 var listView = {
 	template: $('#listTemplate', 1).innerHTML,
 	created: function() {
-		this.$dispatch('menuItems', [])
+		var self = this;
+		store.get('items', function(items) {
+			var ret = items.filter(function(item) {
+				return (new Date(item.expiryDate) - new Date() ) < 0;
+			}).map(function(item) {
+				if(typeof item.completed === 'undefined') {
+					item.completed = false;
+				}
+				return item;
+			});
+			
+			self.items = ret;
+		});
+		this.$dispatch('menuItems', []);
 	},
 	data: function() {
 		return {
@@ -38,14 +51,7 @@ var listView = {
 				name: '',
 				completed: false
 			},
-			items: store.get('items').filter(function(item) {
-				return (new Date(item.expiry) - new Date() ) < 0;
-			}).map(function(item) {
-				if(typeof item.completed === 'undefined') {
-					item.completed = false;
-				}
-				return item;
-			}),
+			items: [],
 			listItems: store.get('listItems')
 		};
 	},
@@ -54,11 +60,11 @@ var listView = {
 			var newListItem = {
 				name: this.newListItem.name.trim(),
 				completed: false
-			}
+			};
 
 			if(newListItem.name) {
 				this.listItems.push(newListItem);
-				store.post('listItems', newListItem);
+				store.add('listItems', newListItem);
 
 				this.newListItem.name = '';
 			}
@@ -71,9 +77,9 @@ var listView = {
 
 			store.update(list, index, item);
 		},
-		delete: function(index, list) {
+		remove: function(index, list) {
 			this[list].$remove(index);
-			store.delete(list, index);
+			store.remove(list, index);
 		}
 	}
 };
