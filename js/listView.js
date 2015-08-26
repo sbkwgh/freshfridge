@@ -3,6 +3,7 @@
 var mainHammer = new Hammer($('#main', 1))
 
 mainHammer.on('swipeleft tap', function(ev) {
+	if(app.currentView !== 'list') return;
 	var tagName = ev.target.tagName.toLowerCase();
 	var parentTagName = ev.target.parentElement.tagName.toLowerCase();
 
@@ -14,6 +15,7 @@ mainHammer.on('swipeleft tap', function(ev) {
 	}
 });
 mainHammer.on('swiperight tap', function(ev) {
+		if(app.currentView !== 'list') return;
 		var tagName = ev.target.tagName.toLowerCase();
 		var parentTagName = ev.target.parentElement.tagName.toLowerCase();
 
