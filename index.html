@@ -177,7 +177,6 @@
 		<div class="list-header" v-show='items.length'>Expired items</div>
 		<ul class='main-list'>
 			<li v-repeat='item: items'>
-				<div class='strikethrough' v-class='strikethrough-width: item.completed'></div>
 				<div class='main-list-checkbox'>
 					<input v-on='click: toggleCompleted($index, "items")' v-attr='checked: item.completed' type='checkbox'/>
 					<div></div>
@@ -186,16 +185,24 @@
 				<div class='main-list-delete' v-on='click: remove($index, "items")'>
 					Delete
 				</div>
+				<div class='strikethrough' v-class='strikethrough-width: item.completed'></div>
 			</li>
 		</ul>
 	</script>
 
 	<script type="text/template" id='recipeTemplate'>
-		<template v-repeat='recipeCategory: recipeCategories'>
-			<div class='recipe-cards-title' id='{{$index}}'>{{recipeCategory.title}}</div>
+			<div class='recipe-cards-title'>Starred <div class='star-fill'></div></div>
 				<div class='recipe-cards'>
-					<template v-repeat='recipeCard: recipeCategory.recipeCards'>
-						<div class='recipe-card' v-on='click: toggleRecipeCard($index, $event)' style='background-image: url({{recipeCard.image}})'>
+					<div class='recipe-cards-no-recipe' v-if='!starredRecipes.length'>
+						<div class='recipe-cards-no-recipe-background'></div>
+						<div class='recipe-cards-no-recipe-middle'>
+							No starred recipes.
+							<br/>
+							Tap a recipe then <div class='star'></div> to add some
+						</div>
+					</div>
+					<template v-repeat='recipeCard: starredRecipes'>
+						<div class='recipe-card' v-on='click: toggleStarredRecipeCard($index, $event)' style='background-image: url({{recipeCard.image}})'>
 							<div class='recipe-card-title'>
 								{{recipeCard.title}}
 							</div>
@@ -211,7 +218,36 @@
 				<div class='recipe-header'>
 					<span class='recipe-title' v-on='click: recipeUrl'>Get full instructions</span>
 					<div class='recipe-header-right'>
-						<div class='star'></div>
+						<div v-class='star-fill: starred, star: !starred' v-on='click: unstarStarredRecipeCard($event)'></div>
+						<div class='cross' v-on='click: closeRecipeCard($event)'></div>
+					</div>
+					<br clear='all' />
+				</div>
+				<ul v-repeat='ingredient: ingredients'>
+					<li>{{ingredient}}</li>
+				</ul>
+			</div>
+		<template v-repeat='recipeCategory: recipeCategories'>
+			<div class='recipe-cards-title' id='{{$index}}'>{{recipeCategory.title}}</div>
+				<div class='recipe-cards'>
+					<template v-repeat='recipeCard: recipeCategory.recipeCards'>
+						<div class='recipe-card' v-on='click: toggleRecipeCard($index, $parent.$index, $event)' style='background-image: url({{recipeCard.image}})'>
+							<div class='recipe-card-title'>
+								{{recipeCard.title}}
+							</div>
+						</div>
+					</template>
+				</div>
+			</div>
+			<div class='recipe' v-class='recipe-hidden: hideRecipe'>
+				<div class='recipe-left-shadow'></div>
+				<div class='recipe-right-shadow'></div>
+				<div class='recipe-above-arrow-left'></div>
+				<div class='recipe-above-arrow-right'></div>
+				<div class='recipe-header'>
+					<span class='recipe-title' v-on='click: recipeUrl'>Get full instructions</span>
+					<div class='recipe-header-right'>
+						<div v-class='star-fill: starred, star: !starred' v-on='click: starRecipeCard'></div>
 						<div class='cross' v-on='click: closeRecipeCard($event)'></div>
 					</div>
 					<br clear='all' />

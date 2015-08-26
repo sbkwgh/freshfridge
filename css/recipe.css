@@ -2,9 +2,37 @@
     bottom: 1.5rem;
 }
 
+.recipe-cards-no-recipe {
+	text-align: center;
+	font-size: 1.125rem;
+	background-size: cover;
+	height: 100%;
+	position: relative;
+	z-index: 2;
+	border-radius: 0.5rem;
+	margin: 0 0.5rem;
+}
+	.recipe-cards-no-recipe-middle {
+		top: 50%;
+		position: relative;
+		transform: translateY(-50%);
+		-webkit-transform: translateY(-50%);
+	}
+	.recipe-cards-no-recipe-background {
+		background-image: url('../images/placeholderforks.png');
+		background-size: cover;
+		height: 100%;
+		border-radius: 0.5rem;
+		width: 100%;
+		position: absolute;
+		z-index: -1;
+		opacity: 0.1;
+	}
+
+
 .recipe-hidden {
 	max-height: 0 !important;
-	opacdity: 0;
+	opacity: 0;
 	pointer-events: none;
 }
 
@@ -50,18 +78,18 @@
 		background-image: url(http://static.food2fork.com/Bacon2BWrapped2BJalapeno2BPopper2BStuffed2BChicken2B5002B5909939b0e65.jpg);
 		background-size: cover;
 	}
+		.recipe-card:last-child {
+			box-sizing: border-box;
+			width: 90%;
+			margin: 0 0 0 1.25%;
+			display: inline-block;
+			height: 10rem;
+		}
 		.recipe-card:first-child {
 			border-radius: 0 0.5rem 0.5rem 0rem;
 			box-sizing: border-box;
 			width: 90%;
 			margin: 0 2.5% 0 0;
-			display: inline-block;
-			height: 10rem;
-		}
-		.recipe-card:last-child {
-			box-sizing: border-box;
-			width: 90%;
-			margin: 0 0 0 1.25%;
 			display: inline-block;
 			height: 10rem;
 		}
