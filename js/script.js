@@ -51,7 +51,7 @@ var webSQL = {
 		console.log('success');
 	},
 	openDb: function() {
-		var dbSize = 5 * 1024 * 1024;
+		var dbSize = 4 * 1024 * 1024;
 		
 		if(!openDatabase) {
 			store.onError();
