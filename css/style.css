@@ -18,7 +18,7 @@ Default gray: #848484
 	.star:hover {
 		background-image: url('../images/starHover.png')
 	}
-	.star:focus, .star .star-fill {
+.star-fill {
 		background-image: url('../images/starFill.png');
 		height: 1.3rem;
 		width: 1.3rem;

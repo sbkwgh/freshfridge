@@ -1,3 +1,5 @@
+Vue.config.debug = true;
+
 //Add page show/hide functionality
 document.querySelector('#header-icon-add').addEventListener('click', function() {
 	document.querySelector('#main').classList.toggle('blur');

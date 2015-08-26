@@ -47,6 +47,7 @@ div .delete-right {
 		width: calc(100% - 1rem);
 		font-size: 1.125rem;
 		padding: 0.5rem;
+		text-overflow: ellipsis;
 	}
 		.main-list-checkbox {
 			position: relative;
@@ -81,6 +82,9 @@ div .delete-right {
 				border: 3px solid rgb(111, 223, 125);
 				position: absolute;
 				z-index: 2;
+				background-color: #FFF;
+				background-image: url('../images/checkboxOpacity.png');
+				background-size: cover;
 				pointer-events: none;
 				transition: all 0.2s;
 			}
