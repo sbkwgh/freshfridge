@@ -70,7 +70,7 @@ var fridgeView = {
 			} else if(tabName === 'search') {
 				this.searchBox = '';
 				this.tab = 'search';
-				
+				$('#search input')[0].focus
 			}
 		},
 		search: function() {
