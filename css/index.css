@@ -1,18 +1,27 @@
 #search {
 	box-sizing: border-box;
-	padding-top: 0.75em;
-	position: relative;
+	padding-top: 0.5em;
 	transform: all 0.2s;
 }
 	#search input {
-		width: calc(100% - 3rem);
+		width: 90%;
 		margin: 0px auto;
 		display: block;
 		height: 2rem;
 		padding: 0.25rem 0.5rem;
-		border-radius: 3rem;
+		border-radius: 0.35rem;
 		border: 2px solid gray;
 		box-sizing: border-box;
+	}
+	#search:before {
+		content: '';
+		display: inline-block;
+		position: absolute;
+		border-left: 0.5rem solid transparent;
+		border-right: 0.5rem solid transparent;
+		border-bottom: 0.5rem solid gray;
+		left: 78%;
+		top: 5.7rem;
 	}
 
 
