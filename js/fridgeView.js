@@ -1,16 +1,3 @@
-/*//Show/hide searh bar
-$('#menu-specific-search', 1).addEventListener('click', function(event) {
-	document.body.classList.toggle('body-top-padding');
-	$('#main-cover', 1).classList.toggle('no-visibility');
-	$('#menu', 1).classList.toggle('no-visibility');
-	$('#search-cover', 1).classList.toggle('no-visibility');
-});
-$('#search-cover', 1).addEventListener('click', function(event) {
-	document.body.classList.toggle('body-top-padding');
-	$('#search-cover', 1).classList.toggle('no-visibility');
-});*/
-
-
 //Display text of expiry date
 Vue.filter('daysUntilExpiry', function(expiryDate) {
 	var daysUntilExpiry = Math.round((new Date(expiryDate) - new Date()) / (1000*60*60*24));
@@ -33,6 +20,8 @@ var fridgeView = {
 	data: function() {	
 		return {
 			isEditing: false,
+			tab: 'all',
+			searchBox: '',
 			items: []
 		};
 	},
@@ -46,11 +35,6 @@ var fridgeView = {
 				id: 'menu-specific-edit',
 				content: 'Edit items',
 				event: 'menuEdit'
-			},
-			{
-				id: 'menu-specific-search',
-				content: 'Search',
-				event: 'menuSearch'
 			}
 		])
 		this.$on('itemAdded', function(item) {
@@ -61,9 +45,44 @@ var fridgeView = {
 		})
 	},
 	methods: {
-		deleteItem: function(index) {
-			store.remove('items', index);
+		deleteItem: function(id, index) {
+			store.remove('items', id);
 			this.items.$remove(index);
+		},
+		selectTab: function(tabName) {
+			var self = this;
+			
+			if(tabName === 'all') {
+				this.tab = 'all';
+
+				store.get('items', function(items) {
+					self.items = items;
+				});
+			} else if(tabName === 'expiring') {
+				this.tab = 'expiring';
+				store.get('items', function(items) {
+					self.items = items.filter(function(item) {
+						var daysUntilExpiry = Math.round((new Date(item.expiryDate) - new Date()) / (1000*60*60*24));
+						
+						return daysUntilExpiry < 8;
+					});
+				});
+			} else if(tabName === 'search') {
+				this.searchBox = '';
+				this.tab = 'search';
+				
+			}
+		},
+		search: function() {
+			var self = this;
+			store.get('items', function(items) {
+				self.items = items;
+				store.get('items', function(items) {
+					self.items = items.filter(function(item) {
+						return item.name.slice(0, self.searchBox.length) === self.searchBox;
+					});
+				});
+			});
 		}
 	}
-}
+};

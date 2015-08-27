@@ -1,9 +1,8 @@
 #search {
-	height: 3rem;
 	box-sizing: border-box;
 	padding-top: 0.75em;
 	position: relative;
-	top: -3rem;
+	transform: all 0.2s;
 }
 	#search input {
 		width: calc(100% - 3rem);
@@ -30,12 +29,13 @@
 	width: calc(50% - 1.5rem);
 	margin: 1rem 0.5rem 0.5rem 0.5rem;
 }
-	#main .tile:nth-child(even) {
+	#main .tile:nth-child(odd) {
 		margin-left: 0.75rem;
 		float: right;
 	}
-	#main .tile:nth-child(odd) {
+	#main .tile:nth-child(even) {
 		float: left;
+		margin-left: 0.8rem;
 	}
 	.tile-image {
 		border-radius: 0.15rem 0.15rem 0 0;

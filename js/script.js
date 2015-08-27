@@ -106,7 +106,7 @@ var webSQL = {
 		
 		db.transaction(function(tx) {
 			tx.executeSql(
-				'DELETE FROM items WHERE ID=?',
+				'DELETE FROM items WHERE ID = ?',
 				[index],
 				this.onSuccess,
 				this.onError
