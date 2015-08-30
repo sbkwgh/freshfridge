@@ -111,9 +111,7 @@ function getRecipes(self) {
 				})
 				self.recipeCategories = arrayOfCategoriesFromObj(categories);
 
-				arrayOfCategoriesFromObj(categories).forEach(function(recipeCategory) {
-					localStorage.recipeCategories = JSON.stringify(recipeCategory)
-				});
+				localStorage.recipeCategories = JSON.stringify(arrayOfCategoriesFromObj(categories));
 
 			}
 		});
