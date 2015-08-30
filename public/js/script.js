@@ -96,10 +96,9 @@ var webSQL = {
 		return this.db.db;
 	},
 	onError: function(tx, err) {
-		console.log(err);
+		alert(err);
 	},
 	onSuccess: function() {
-		console.log('success');
 	},
 	openDb: function() {
 		var dbSize = 4 * 1024 * 1024;
