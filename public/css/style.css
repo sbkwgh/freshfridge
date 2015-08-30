@@ -6,6 +6,13 @@ Background gray: #E3E3E1
 Default gray: #848484
 */
 
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
 .star {
 	cursor: pointer;
 	background-image: url('../images/star.png');
