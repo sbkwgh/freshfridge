@@ -1,23 +1,88 @@
-#homeImage {
-	float: left;
-	height: auto;
+#search {
+	box-sizing: border-box;
+	padding-top: 0.5em;
+	transform: all 0.2s;
 }
+	#search input {
+		width: 90%;
+		margin: 0px auto;
+		display: block;
+		height: 2rem;
+		padding: 0.25rem 0.5rem;
+		border-radius: 0.35rem;
+		border: 2px solid gray;
+		box-sizing: border-box;
+	}
+	#search:before {
+		content: '';
+		display: inline-block;
+		position: absolute;
+		border-left: 0.5rem solid transparent;
+		border-right: 0.5rem solid transparent;
+		border-bottom: 0.5rem solid gray;
+		left: 78%;
+		top: 5.7rem;
+	}
 
-#jumbo {
-	height: 35rem;
+
+.tile {
+	position: relative;
+	display: inline-block;
+	box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.3);
+	border-radius: 0.15rem;
+	background-color: #FFF;
+	width: 100%;
+	margin: 0.5rem 0;
+	z-index: 1;
+	height: 13rem;
+	width: calc(50% - 1.5rem);
+	margin: 1rem 0.5rem 0.5rem 0.5rem;
 }
-
-p {
-	margin-bottom: 3rem;
+	#main .tile:nth-child(odd) {
+		margin-left: 0.75rem;
+		float: right;
+	}
+	#main .tile:nth-child(even) {
+		float: left;
+		margin-left: 0.8rem;
+	}
+	.tile-image {
+		border-radius: 0.15rem 0.15rem 0 0;
+		height: calc(100% - 6rem);
+		background-size: cover;
+	}
+	.tile-info {
+		height: 4rem;
+		padding: 0.5rem;
+	}
+		.tile-info-expiry {
+			font-size: 0.8rem;
+		}
+.tile-delete {
+	height: 100%;
+	border-radius: 0.15rem;
+	position: absolute;
+	width: 100%;
+	background-color: #FFF;
+	opacity: 0.9;
+	text-align: center;
 }
-
-@media (max-width: 520px) {
-	#homeImage {
-		float: none;
+	.tile-delete span {
+		border: 3px solid red;
+		cursor: pointer;
+		width: 3rem;
 		margin: 0 auto;
-		height: auto;
+		border-radius: 5rem;
+		font-size: 3rem;
+		display: block;
+		position: relative;
+		top: calc(50% - 1.5rem);
+		line-height: 3rem;
+		height: 3rem;
+		color: red;
+		transition: color 0.2s, border 0.1s;
 	}
-	#jumbo {
-		height: auto;
-	}
-}
+		.tile-delete span:hover {
+			border-color: #C20000;
+			color: #C20000;
+		}
