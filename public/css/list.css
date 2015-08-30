@@ -15,13 +15,17 @@ div .delete-right {
 	width: calc(100% - 2rem);
 	font-size: 1.125rem;
 	font-family: 'Roboto';
-	border: 1px solid gray;
+	border: 2px solid #7D7D7D;
 	height: 2.5rem;
 	padding: 0 0.5rem;
 	margin: 1rem 1rem 0.5rem 1rem;
-	border-radius: 0.15rem;
+	border-radius: 0.35rem;
 	margin-top: 4rem;
+	transition: all 0.2s;
 }
+	#main-list-input:active {
+		border-color: #929292;
+	}
 
 .list-header {
 	margin: 0.5rem 0;
