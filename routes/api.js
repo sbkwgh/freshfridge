@@ -9,9 +9,6 @@ var nutritionix = require('nutritionix')({
 
 var getProduct = require('../functions/getProduct.js');
 var getImageURL = require('../functions/getImageURL.js');
-var addProduct = require('../functions/addProduct.js');
-
-var Item = require('../models/item.js');
 
 var yelpKeys = {
 		consumer_key: "7p8XXcy2WsI9zyu3cy29kg", 

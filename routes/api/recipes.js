@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var config = require('../../config.js');
-var ObjectId = require('mongoose').Types.ObjectId;
 
 var httpJSON = require('../../functions/httpJSON.js');
 
