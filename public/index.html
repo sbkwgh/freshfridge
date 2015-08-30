@@ -14,7 +14,7 @@
 <body>
 	<div id='header'>
 		<div id='header-action' v-show='hidden: display.isEditing'>
-			<button style='margin-top: 0;' v-on='click: doneEditing'>Done</button>
+			<button style='top: -1.25rem; left: 25.5%; position: absolute;' v-on='click: doneEditing'>Done</button>
 		</div>
 		<div id='header-icons' v-show='hidden: !display.isEditing'>
 			<div class='header-icon' v-class='header-icon-active: currentView === "fridge"' v-on='click: changeView("fridge")' id='header-icon-fridge'><img src='images/fridge.png' /></div>
