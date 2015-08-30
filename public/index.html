@@ -14,7 +14,7 @@
 <body>
 	<div id='header'>
 		<div id='header-action' v-show='hidden: display.isEditing'>
-			<button v-on='click: doneEditing'>Done</button>
+			<button style='margin-top: 0;' v-on='click: doneEditing'>Done</button>
 		</div>
 		<div id='header-icons' v-show='hidden: !display.isEditing'>
 			<div class='header-icon' v-class='header-icon-active: currentView === "fridge"' v-on='click: changeView("fridge")' id='header-icon-fridge'><img src='images/fridge.png' /></div>
@@ -45,16 +45,6 @@
 				<input v-model='newItem.name' placeholder='Or enter grocery name'/>
 				<select v-model='newItem.year'>
 					<option disabled selected>Year</option>
-					<option value="2030">2030</option>
-					<option value="2029">2029</option>
-					<option value="2028">2028</option>
-					<option value="2027">2027</option>
-					<option value="2026">20126</option>
-					<option value="2025">2025</option>
-					<option value="2024">2024</option>
-					<option value="2023">2023</option>
-					<option value="2022">2022</option>
-					<option value="2021">2021</option>
 					<option value="2020">2020</option>
 					<option value="2019">2019</option>
 					<option value="2018">2018</option>
@@ -183,7 +173,7 @@
 		<ul class='main-list'>
 			<li v-repeat='item: items'>
 				<div class='main-list-checkbox'>
-					<input v-on='click: toggleCompleted($index, "items")' v-attr='checked: item.completed' type='checkbox'/>
+					<input v-on='click: toggleCompleted($index, "items", item.ID)' v-attr='checked: item.completed' type='checkbox'/>
 					<div></div>
 				</div>
 				<div class='main-list-name'>{{item.name}}</div>
@@ -196,6 +186,9 @@
 	</script>
 
 	<script type="text/template" id='recipeTemplate'>
+			<div id='recipe-url' v-class='show-recipe-url: showRecipeSource'>
+				<iframe src='{{recipeSourceUrl}}'></iframe>
+			</div>
 			<div class='recipe-cards-title'>Starred <div class='star-fill'></div></div>
 				<div class='recipe-cards'>
 					<div class='recipe-cards-no-recipe' v-if='!starredRecipes.length'>
@@ -207,7 +200,7 @@
 						</div>
 					</div>
 					<template v-repeat='recipeCard: starredRecipes'>
-						<div class='recipe-card' v-on='click: toggleStarredRecipeCard($index, $event)' style='background-image: url({{recipeCard.image}})'>
+						<div class='recipe-card' v-on='click: toggleStarredRecipeCard($index, $event)' style='background-image: url({{recipeCard.image_url}})'>
 							<div class='recipe-card-title'>
 								{{recipeCard.title}}
 							</div>
@@ -228,15 +221,15 @@
 					</div>
 					<br clear='all' />
 				</div>
-				<ul v-repeat='ingredient: ingredients'>
-					<li>{{ingredient}}</li>
+				<ul>
+					<li v-repeat='ingredient: ingredients'>{{ingredient}}</li>
 				</ul>
 			</div>
 		<template v-repeat='recipeCategory: recipeCategories'>
 			<div class='recipe-cards-title' id='{{$index}}'>{{recipeCategory.title}}</div>
 				<div class='recipe-cards'>
 					<template v-repeat='recipeCard: recipeCategory.recipeCards'>
-						<div class='recipe-card' v-on='click: toggleRecipeCard($index, $parent.$index, $event)' style='background-image: url({{recipeCard.image}})'>
+						<div class='recipe-card' v-on='click: toggleRecipeCard($index, $parent.$index, $event)' style='background-image: url({{recipeCard.image_url}})'>
 							<div class='recipe-card-title'>
 								{{recipeCard.title}}
 							</div>
@@ -257,8 +250,8 @@
 					</div>
 					<br clear='all' />
 				</div>
-				<ul v-repeat='ingredient: ingredients'>
-					<li>{{ingredient}}</li>
+				<ul>
+					<li v-repeat='ingredient: ingredients'>{{ingredient}}</li>
 				</ul>
 			</div>
 		</template>

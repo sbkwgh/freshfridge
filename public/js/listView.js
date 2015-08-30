@@ -37,9 +37,12 @@ var listView = {
 			var ret = items.filter(function(item) {
 				return (new Date(item.expiryDate) - new Date() ) < 0;
 			}).map(function(item) {
-				if(typeof item.completed === 'undefined') {
+				if(item.completed === 'false') {
 					item.completed = false;
+				} else {
+					item.completed = true
 				}
+
 				return item;
 			});
 			
@@ -71,12 +74,15 @@ var listView = {
 				this.newListItem.name = '';
 			}
 		},
-		toggleCompleted: function(index, list) {
+		toggleCompleted: function(index, list, id) {
 			var item = this[list][index];
 			item.completed = !item.completed;
 
 			this[list].$set(index, item);
 
+			if(id) {
+				index = id;
+			}
 			store.update(list, index, item);
 		},
 		remove: function(index, list) {

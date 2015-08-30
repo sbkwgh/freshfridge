@@ -1,3 +1,22 @@
+#recipe-url {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: -100%;
+	background-color: #FFF;
+	z-index: 2;
+}
+	#recipe-url iframe {
+		width: 100%;
+		height: 99%;
+		padding: 0;
+		margin: 0;
+		border: 0;
+	}
+.show-recipe-url {
+	top: 3rem !important;
+}
+
 .recipe-cards .recipe-card-full-width .recipe-card-title {
     bottom: 1.5rem;
 }
@@ -31,7 +50,8 @@
 
 
 .recipe-hidden {
-	max-height: 0 !important;
+	height: 0 !important;
+	display: none;
 	opacity: 0;
 	pointer-events: none;
 }
@@ -43,13 +63,15 @@
 
 .recipe-hidden + .recipe-cards-title {
 	padding: 0;
+	padding-top: 1rem;
 	padding-left: 0.5rem;
 	height: 2rem;
-	line-height: 0rem;
 }
 
 .recipe-cards-title {
+	font-size: 1.125rem;
 	padding: 0.5rem;
+	text-transform: capitalize;
 }
 	.recipe-cards-title:first-child {
 		margin-top: 3rem;
@@ -96,13 +118,18 @@
 		.recipe-card-title {
 			transiton: all 0.2s;
 			position: absolute;
+			text-transform: capitalize;
+			text-shadow: 0px 0px 3px black;
 			bottom: 0.75rem;
 			left: 0.75rem;
 			color: #FFF;
 			width: 100%;
+			width: 96%;
+			text-overflow: ellipsis;
+			overflow: hidden;
 		}
 		.recipe {
-			max-height: 500px;
+			height: 19rem;
 			transition: max-height 0.4s ease-in, opacity 0.6s ease-in;
 			box-shadow: inset 0px -6px 5px 0px rgba(0,0,0,0.2);
 			width: 100%;
@@ -227,15 +254,18 @@
 							width: 1.3rem;
 						}
 			.recipe ul {
+				height: 15rem;
+				overflow-y: auto;
+				-webkit-overflow-scrolling: touch;
 				position: relative;
 				top: -1rem;
+				font-size: 0.9rem;
 				color: #D2D2D2;
 				width: 100%;
 				margin: 0;
-				padding: 0.5rem 0;
-				padding-top: 0.5rem;
+				padding: 0.5rem;
 				list-style: none;
 			}
 				.recipe li {
-					padding: 0.125rem 0.75rem;
+					padding: 0.125rem 1rem;
 				}

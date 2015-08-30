@@ -71,7 +71,7 @@ button:focus {
 
 .tab {
     width: 90%;
-    margin: 4rem auto 0 auto;
+    margin: 1rem auto 0 auto;
     background-color: #808080;
     color: #FFF;
     border-radius: 0.35rem;
@@ -307,7 +307,10 @@ html, body {
 				}
 #main {
 	background-color: #E3E3E1;
-	height: calc(100%);
+	height: calc(100% - 3rem);
+	width: 100%;
+	top: 3rem;
+	position: absolute;
 	transition: filter 0.2s;
 	overflow-y: auto;
 	overflow-x: hidden;

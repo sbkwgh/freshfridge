@@ -70,17 +70,19 @@ var fridgeView = {
 			} else if(tabName === 'search') {
 				this.searchBox = '';
 				this.tab = 'search';
-				$('#search input')[0].focus
+
+				store.get('items', function(items) {
+					self.items = items;
+				});
+
+				$('#search input')[0].focus();
 			}
 		},
 		search: function() {
 			var self = this;
 			store.get('items', function(items) {
-				self.items = items;
-				store.get('items', function(items) {
-					self.items = items.filter(function(item) {
-						return item.name.slice(0, self.searchBox.length) === self.searchBox;
-					});
+				self.items = items.filter(function(item) {
+					return item.name.slice(0, self.searchBox.length) === self.searchBox;
 				});
 			});
 		}

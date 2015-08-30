@@ -27,9 +27,15 @@ var app = new Vue({
 		}
 	},
 	created: function() {
+		if(localStorage.modified === undefined) {
+			localStorage.modified = true;
+		}
 		this.$on('menuItems', function(menuItems) {
 			this.menuItems = menuItems;
 		});
+		this.$on('toggleEditing', function() {
+			this.display.isEditing = !this.display.isEditing;
+		})
 	},
 	components: {
 		fridge: fridgeView,
@@ -38,28 +44,44 @@ var app = new Vue({
 	},
 	methods: {
 		addItem: function() {
-			if(!this.newItem.name.trim()) return;
-			var newItem = {
-				imageURL: 'http://www.melissahartfiel.com/wp-content/uploads/2013/04/20130426-1304_untitled0051.jpg',
-				name: this.newItem.name.trim(),
-				expiryDate: new Date(this.newItem.year + '-' + this.newItem.month + '-' + this.newItem.day)
-			};
+			var name = this.newItem.name.trim();
+			var year = this.newItem.year;
+			var month = this.newItem.month;
+			var day = this.newItem.day;
 
-			store.add('items', newItem);
-			this.$broadcast('itemAdded', newItem);
+			var self = this;
+
+			if(!name) return;
+
+			ajax.get(
+				'/api/image',
+				{name: name},
+				function(err, image) {
+					if(!err) {
+						var newItem = {
+							imageURL: image.url,
+							name: name,
+							expiryDate: new Date(year + '-' + month + '-' + day)
+						};
+						store.add('items', newItem);
+						self.$broadcast('itemAdded', newItem);
+						localStorage.modified = 'true';
+					}
+				}
+			);
 
 			this.newItem.name = '';
-			this.newItem.day = '';
-			this.newItem.month = '';
-			this.newItem.year = '';
+			this.newItem.day = 'Day';
+			this.newItem.month = 'Month';
+			this.newItem.year = 'Year';
 
 			$('#header-icon-add', 1).click();
 		},
 		cancelAddItem: function() {
 			this.newItem.name = '';
-			this.newItem.day = '';
-			this.newItem.month = '';
-			this.newItem.year = '';
+			this.newItem.day = 'Day';
+			this.newItem.month = 'Month';
+			this.newItem.year = 'Year';
 
 			$('#header-icon-add', 1).click();
 		},
@@ -71,7 +93,12 @@ var app = new Vue({
 		},
 		doneEditing: function() {
 			this.display.isEditing = !this.display.isEditing;
-			this.$broadcast('toggleIsEditing');
+
+			if(this.currentView === 'recipe') {
+				this.$broadcast('closeSourceUrl');
+			} else {
+				this.$broadcast('toggleIsEditing');
+			}
 		},
 		menuEvent: function(event) {
 			this[event]();

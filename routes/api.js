@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var config = require('../config.js');
+var httpJSON = require('../functions/httpJSON.js');
 
 var nutritionix = require('nutritionix')({
 	appId: '9b3a4047',
@@ -82,5 +83,71 @@ router.get('/nutrition', function(req, res) {
 		res.json(results)
 	});
 })
+
+function getRecipeList(ingredients, cb) {
+	httpJSON(
+		'http://food2fork.com/api/search?key=c5c5fa56a211d8753f8e60cabdbb7541&q=' + 
+		encodeURIComponent(ingredients),
+		function(err, recipes) {
+			if(err) cb(err);
+
+			function shuffle(arr) {
+				var shuffledArr = [];
+				while (shuffledArr.length !== arr.length) {
+					var rand = Math.floor(Math.random() * (1 + arr.length));
+					if (typeof arr[rand] !== "undefined") {
+						shuffledArr.push(arr[rand]);
+						delete arr[rand];
+					}
+				}
+				return shuffledArr;
+			}
+
+			var recipeIds = shuffle(recipes.recipes).slice(0, 9).map(function(recipe) {
+				return recipe.recipe_id;
+			})
+
+			cb(null, recipeIds);
+		}
+	)
+}
+
+function getRecipes(recipeIds, cb) {
+	var recipes = [];
+	function done() {
+		if(recipes.length === recipeIds.length) {
+			cb(null, recipes);
+		}
+	}
+	recipeIds.forEach(function(id) {
+		var url = 'http://food2fork.com/api/get?key=c5c5fa56a211d8753f8e60cabdbb7541&rId=' + id;
+		httpJSON(url, function(err, recipe) {
+			if(err) cb(err);
+			recipes.push(recipe.recipe);
+			done()
+		});
+	})
+}
+
+router.get('/recipes', function(req, res) {
+	if(!req.query.ingredients) {
+		res.json({errors: ['ingredient parameter undefined']});
+		return;
+	}
+	var ingredients = req.query.ingredients;
+	getRecipeList(ingredients, function(err, recipeIds) {
+		if(err) {
+			res.json({errors: ['ingredient parameter undefined']});
+			return;
+		}
+		getRecipes(recipeIds, function(err, recipes) {
+			if(err) {
+				res.json({errors: ['ingredient parameter undefined']});
+				return;
+			}	
+			res.json({recipes: recipes})
+		});
+	});
+});
 
 module.exports = router;

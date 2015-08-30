@@ -10,7 +10,7 @@ div .delete-right {
 }
 
 #main-list-input {
-	box-shadow: 0;
+	box-shadow: none;
 	box-sizing: border-box;
 	width: calc(100% - 2rem);
 	font-size: 1.125rem;
@@ -20,7 +20,7 @@ div .delete-right {
 	padding: 0 0.5rem;
 	margin: 1rem 1rem 0.5rem 1rem;
 	border-radius: 0.35rem;
-	margin-top: 4rem;
+	margin-top: 1rem;
 	transition: all 0.2s;
 }
 	#main-list-input:active {

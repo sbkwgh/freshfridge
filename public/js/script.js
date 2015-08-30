@@ -36,6 +36,57 @@ function $(selectorOrParentSelector, returnOneOrChildSelector, returnOne) {
 	return null;
 }
 
+var ajax = {
+	getParams: function(data) {
+		var params = [];
+
+		Object.keys(data).forEach(function(key) {
+			params.push(key + '=' + data[key]);
+		});
+
+		return params.join('&');
+	},
+	req: function(method, url, data, cb) {
+		var xhr = new XMLHttpRequest();
+
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState === 4) {
+				if(xhr.status === 200 || xhr.status === 304) {
+					cb(null, JSON.parse(xhr.responseText));
+				} else {
+					cb(new Error(xhr.status || 'timeout in request'));
+				}
+			}
+		};
+
+		xhr.ontimeout = function() {
+			cb(new Error(xhr.status || 'timeout in request'));
+		};
+
+		xhr.open(method, url, true);
+		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		if(data) {
+			xhr.send(data)
+		} else {
+			xhr.send();
+		}
+	},
+	get: function(url, data, cb) {
+		if(typeof data === 'function') {
+			this.req('GET', url, undefined, data);
+		} else {
+			this.req('GET', url + '?' + this.getParams(data), undefined, cb);
+		}
+	},
+	post: function(url, data, cb) {
+		if(typeof data === 'function') {
+			this.req('POST', url, undefined, data);
+		} else {
+			this.req('POST', url, this.getParams(data), cb);
+		}
+	}
+};
+
 var webSQL = {
 	db: function() {
 		if(!this.db.db) {
@@ -64,7 +115,7 @@ var webSQL = {
 		var db = this.db();
 		
 		db.transaction(function(tx) {
-			tx.executeSql('CREATE TABLE IF NOT EXISTS items(ID INTEGER PRIMARY KEY ASC, name TEXT, imageURL TEXT, expiryDate DATETIME)', []);
+			tx.executeSql('CREATE TABLE IF NOT EXISTS items(ID INTEGER PRIMARY KEY ASC, completed BOOL, name TEXT, imageURL TEXT, expiryDate DATETIME)', []);
 		});
 	},
 	add: function(obj) {
@@ -72,8 +123,8 @@ var webSQL = {
 		
 		db.transaction(function(tx) {
 			tx.executeSql(
-				'INSERT INTO items(name, imageURL, expiryDate) VALUES(?, ?, ?)',
-				[obj.name, obj.imageURL, obj.expiryDate],
+				'INSERT INTO items(completed, name, imageURL, expiryDate) VALUES(?, ?, ?, ?)',
+				[false, obj.name, obj.imageURL, obj.expiryDate],
 				this.onSuccess, 
 				this.onError
 			);
@@ -115,11 +166,12 @@ var webSQL = {
 	},
 	update: function(index, item) {
 		var db = this.db();
-		
+	
+
 		db.transaction(function(tx) {
 			tx.executeSql(
-				'UPDATE items SET name=?, imageURL=?, expiryDate=? WHERE ID=?',
-				[item.name, item.imageURL, item.expiryDate, index],
+				'UPDATE items SET completed=?, name=?, imageURL=?, expiryDate=? WHERE ID=?',
+				[item.completed, item.name, item.imageURL, item.expiryDate, index],
 				this.onSuccess,
 				this.onError
 			);

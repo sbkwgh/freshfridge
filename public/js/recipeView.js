@@ -5,7 +5,6 @@ function scroll(el, sign) {
 	var currentLeft = +el.style.left.slice(0, -2);
 	var newScrollLeft = currentLeft + Math.round(el.offsetWidth * sign * 0.82);
 
-	console.log(newScrollLeft + ' ' + width)
 	if(newScrollLeft <= width) {
 		console.log('here')
 		newScrollLeft = width;
@@ -34,10 +33,109 @@ mainHammer.on('swiperight', function(ev) {
 	}
 });
 
+function getRecipes(self) {
+	store.get('items', function(items) {
+		function shuffle(arr) {
+			arr = arr.slice(0)
+			var shuffledArr = [];
+			while (shuffledArr.length !== arr.length) {
+				var rand = Math.floor(Math.random() * (1 + arr.length));
+				if (typeof arr[rand] !== "undefined") {
+					shuffledArr.push(arr[rand]);
+					delete arr[rand];
+				}
+			}
+			return shuffledArr;
+		}
+
+		function getArrayOfWordsInIngredientsList(ingredients) {
+			var ingredientsList = [];
+
+			ingredients.forEach(function(ingredient) {
+				var splitIngredients = ingredient.split(' ').map(function(ingredient) {
+					return ingredient.toLowerCase();
+				});
+				splitIngredients.forEach(function(splitIngredient) {
+					ingredientsList.push(splitIngredient)
+				})
+			});
+
+			return ingredientsList;
+		}
+
+		function checkIfRecipeContainsItemAsIngredient(recipe) {
+				var recipeList = getArrayOfWordsInIngredientsList(recipe.ingredients);
+				var answer = false;
+
+			items.forEach(function(item) {
+				name = item.name.toLowerCase();
+				if(recipeList.indexOf(name) !== -1){
+					answer = item.name;
+					return;
+				}
+			})
+
+			return answer;
+		}
+
+		function arrayOfCategoriesFromObj(obj) {
+			var arr = [];
+
+			Object.keys(obj).forEach(function(categoryTitle) {
+				arr.push({
+					title: categoryTitle,
+					recipeCards: obj[categoryTitle]
+				})
+			})
+
+			return arr;
+		}
+
+		var ingredients = shuffle(items).slice(0, 9).map(function(item) {
+			return item.name;
+		}).join(',');
+
+		var categories = [];
+		
+		ajax.get('/api/recipes', {ingredients: ingredients}, function(err, recipes) {
+			if(!err) {
+				recipes.recipes.forEach(function(recipe) {
+					var recipeCategoryTitle = checkIfRecipeContainsItemAsIngredient(recipe);
+					if(recipeCategoryTitle) {
+						if(!categories[recipeCategoryTitle]) {
+							categories[recipeCategoryTitle] = []
+						}
+
+						categories[recipeCategoryTitle].push(recipe)
+					}
+				})
+				self.recipeCategories = arrayOfCategoriesFromObj(categories);
+
+				arrayOfCategoriesFromObj(categories).forEach(function(recipeCategory) {
+					localStorage.recipeCategories = JSON.stringify(recipeCategory)
+				});
+
+			}
+		});
+	});
+}
+
 var recipeView = {
 	template: $('#recipeTemplate', 1).innerHTML,
 	created: function() {
 		this.$dispatch('menuItems', []);
+		this.$on('closeSourceUrl', function() {
+			this.showRecipeSource = false;
+		})
+
+		var self = this;
+
+		if(localStorage.modified === 'false') {
+			self.recipeCategories = store.get('recipeCategories');
+		} else {
+			localStorage.modified = 'false';
+			getRecipes(self);
+		}
 		
 	},
 	data: function() {
@@ -45,74 +143,25 @@ var recipeView = {
 			ingredients: '',
 			starred: false,
 			hideRecipe: true,
+			recipeSourceUrl: '',
+			showRecipeSource: false,
 			starredRecipes: store.get('starredRecipes'),
-			recipeCategories: [
-				{
-					title: 'Breakfast',
-					recipeCards: [
-						{
-							image: 'http://static.food2fork.com/Bacon2BWrapped2BJalapeno2BPopper2BStuffed2BChicken2B5002B5909939b0e65.jpg',
-							title: 'Chicken with bacon',
-							ingredients: [
-								'Cheese',
-								'Bacon rashers',
-								'4 chicken breasts',
-							]
-						},
-						{
-							image: 'http://static.food2fork.com/Bacon2BWrapped2BJalapeno2BPopper2BStuffed2BChicken2B5002B5909939b0e65.jpg',
-							title: 'Chicken with bacon',
-							ingredients: [
-								'Cheese',
-								'Bacon rashers',
-								'4 chicken breasts',
-							]
-						}
-					]
-				},
-				{
-					title: 'Breakfast',
-					recipeCards: [
-						{
-							image: 'http://static.food2fork.com/Bacon2BWrapped2BJalapeno2BPopper2BStuffed2BChicken2B5002B5909939b0e65.jpg',
-							title: 'Chicken with bacon',
-							ingredients: [
-								'Cheese',
-								'Bacon rashers',
-								'4 chicken breasts',
-							]
-						},
-						{
-							image: 'http://static.food2fork.com/Bacon2BWrapped2BJalapeno2BPopper2BStuffed2BChicken2B5002B5909939b0e65.jpg',
-							title: 'Chicken with bacon',
-							ingredients: [
-								'Cheese',
-								'Bacon rashers',
-								'4 chicken breasts',
-							]
-						},
-						{
-							image: 'http://static.food2fork.com/Bacon2BWrapped2BJalapeno2BPopper2BStuffed2BChicken2B5002B5909939b0e65.jpg',
-							title: 'Chicken with bacon',
-							ingredients: [
-								'Cheese',
-								'Bacon rashers',
-								'4 chicken breasts',
-							]
-						}
-					]
-				}
-			]
-		};
+			recipeCategories: []
+		}
 	},
 	methods: {
 		toggleRecipeCard: function(recipeIndex, categoryIndex, ev) {
+			var el = ev.target;
+			if(el.classList.contains('recipe-card-title')) {
+				el = el.parentElement;
+			}
+
 			var recipe = this.recipeCategories[categoryIndex].recipeCards[recipeIndex];
 			
 			this.starred = false;
 			
 			for(var i = 0; i < this.starredRecipes.length; i++) {
-				if(this.starredRecipes[i].image === recipe.image) {
+				if(this.starredRecipes[i].image_url === recipe.image_url) {
 					this.starred = true
 				}
 			}
@@ -120,12 +169,13 @@ var recipeView = {
 			this.ingredients = recipe.ingredients;
 			this.categoryIndex = categoryIndex;
 			this.recipeIndex = recipeIndex;
+			this.recipeSourceUrl = recipe.source_url;
 			
-			scroll(ev.target.parentElement, -1 *  this.recipeCategories[categoryIndex].recipeCards.length);
-			scroll(ev.target.parentElement, recipeIndex);
+			scroll(el.parentElement, -1 *  this.recipeCategories[categoryIndex].recipeCards.length);
+			scroll(el.parentElement, recipeIndex);
 			
-			ev.target.classList.toggle('recipe-card-full-width');
-			ev.target.parentElement.nextElementSibling.classList.toggle('recipe-hidden');
+			el.classList.toggle('recipe-card-full-width');
+			el.parentElement.nextElementSibling.classList.toggle('recipe-hidden');
 		},
 		closeRecipeCard: function(ev) {
 			var recipe = ev.target.parentElement.parentElement.parentElement;
@@ -133,7 +183,8 @@ var recipeView = {
 			recipe.classList.toggle('recipe-hidden');
 		},
 		recipeUrl: function() {
-
+			this.showRecipeSource = true;
+			this.$dispatch('toggleEditing');
 		},
 		starRecipeCard: function() {
 			var recipe = this.recipeCategories[this.categoryIndex].recipeCards[this.recipeIndex];
@@ -157,15 +208,21 @@ var recipeView = {
 			this.starred = !this.starred;
 		},
 		toggleStarredRecipeCard: function(recipeIndex, ev) {
+			var el = ev.target;
+			if(el.classList.contains('recipe-card-title')) {
+				el = el.parentElement;
+			}
+
 			this.ingredients = this.starredRecipes[recipeIndex].ingredients;
 			this.recipeIndex = recipeIndex;
+			this.recipeSourceUrl = this.starredRecipes[recipeIndex].source_url;
 			this.starred = true;
 			
-			scroll(ev.target.parentElement, -1 *  this.starredRecipes.length);
-			scroll(ev.target.parentElement, recipeIndex);
+			scroll(el.parentElement, -1 *  this.starredRecipes.length);
+			scroll(el.parentElement, recipeIndex);
 			
-			ev.target.classList.toggle('recipe-card-full-width');
-			ev.target.parentElement.nextElementSibling.classList.toggle('recipe-hidden');
+			el.classList.toggle('recipe-card-full-width');
+			el.parentElement.nextElementSibling.classList.toggle('recipe-hidden');
 		},
 		unstarStarredRecipeCard: function(ev) {
 			var recipe = ev.target.parentElement.parentElement.parentElement;
