@@ -1,0 +1,146 @@
+#add-new-product {
+	width: 54rem;
+	margin: 0 auto;
+}
+	#add-new-product input {
+		box-sizing: broder-box;
+		border: 2px solid #70BD75;
+		border-radius: 0.5rem;
+		padding: 0.2rem;
+		transition: all 0.2s;
+		outline: none;
+	}
+		#add-new-product input:focus {
+			box-sizing: broder-box;
+			border: 2px solid green;
+			border-radius: 0.5rem;
+			padding: 0.2rem;
+		}
+	#add-new-product input[type='button'] {
+		box-sizing: broder-box;
+	    height: 3.8rem;
+	  	margin-bottom: 0.2rem;
+		width: 6rem;
+		border: 2px solid green;
+		border-radius: 0.5rem;
+		padding: 0.2rem;
+		transition: all 0.2s;
+	}
+	#add-new-product-expiry {
+		display: inline-block;
+	}
+	#add-new-product-expiry input {
+		width: 7rem;
+	}
+
+#no-products {
+	text-align: center;
+	font-size: 3rem;
+	height: 52vh;
+	vertical-align: middle;
+	display: table-cell;
+	width: 100vw;
+}
+
+#products {
+	padding: 1rem;
+	width: 70rem;
+	margin: 0 auto;
+	box-sizing: border-box;
+	margin-bottom: 5rem;
+}
+	#products .product {
+		position: relative;
+		display: inline-block;
+		overflow: auto;
+		border-radius: 0.2rem;
+		margin: 1rem;
+		height: 20rem;
+		width: 20rem;
+		margin: 0 1rem;
+		box-sizing: border-box;
+		border: 1px solid gray;
+		overflow: hidden;
+		transition: all 0.3s;
+	}
+		#products .product:hover {
+			box-shadow: 0px 3px 6px 0px rgba(50, 50, 50, 0.5);
+		}
+		#products .product .product-delete {
+			font-size: 2rem;
+			position: absolute;
+			display: inline-block;
+			right: 1rem;
+			z-index: 2;
+			top: 1rem;
+			/*border: 2px solid #F37575;
+			color: #F37575;*/
+			height: 2rem;
+			width: 2rem;
+			background-color: #FFF;
+			border-radius: 2rem;/*
+			height: 1.5rem;
+			width: 1.5rem;
+			padding: 0;
+			font-size: 2rem;
+			line-height: 1.25rem;*/
+			cursor: pointer;
+		}
+		#products .product .product-image {
+			background-size: cover;
+			height: 15rem;
+			box-sizing: border-box;
+		}
+		#products .product .product-name {
+			height: 5rem;
+			padding: 1rem;
+			box-sizing: border-box;
+			font-size: 1.2rem;
+		}
+
+@media (max-width: 800px) and (min-width: 475px) {
+	#products {
+		width: 46.5rem;
+	}
+}
+@media (max-width: 600px) {
+	#add-new-product {
+		width: 30rem;
+	}
+	#add-new-product [name=productName] {
+		width: 28.6rem;
+		margin-bottom: 1rem;
+	}
+	#products .product .product-delete {
+		font-size: 3rem;
+		margin-right: 1rem;
+	}
+}
+@media (max-width: 475px) {
+	#products {
+		width: 100%;
+	}
+	#products .product {
+		width: calc(100% - 10rem);
+		margin: 1rem 5rem;
+	}
+	#add-new-product-expiry #year, #add-new-product-expiry #date {
+		width: 6rem;
+	}
+}
+@media (max-width: 400px) {
+	#products {
+		width: 100%;
+	}
+	div #products .product {
+		width: calc(100% - 2rem);
+		margin: 1rem;
+		height: 30rem;
+	}
+	div #products .product .product-image {
+		height: 22rem;
+	}
+	#products .product .product-name {
+		font-size: 2rem;
+	}
+}

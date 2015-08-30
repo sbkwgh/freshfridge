@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+	<link href= "css/notify.css" rel="stylesheet" />
+	<link href= "css/map.css" rel="stylesheet" />
+	<link href= "css/landing.css" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+	 	<p>
+	 		These products have gone past their use-by dates. Here are the shops where you can buy more of them:
+	 	</p>
+		<div id='map-container'>
+			<div id='map'></div>
+		</div>
+		<div id='no-products'>
+			No items are expired. Hooray!
+		</div>
+
+		<div id='products'></div>
+{% endblock %}
+
+{% block scripts %}
+	<script type="text/javascript" src="js/notify.js"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_bAecEakNgYHmORtwlNvNxBVU5Dbc1m4"></script>
+	<script type="text/javascript" src="js/handlebars.js"></script>
+	<script type="text/javascript" src="js/map.js"></script>
+{% endblock %}

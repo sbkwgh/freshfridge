@@ -1,0 +1,70 @@
+#nutrition {
+	width: 80%;
+	margin: 0 auto;
+	margin-bottom: 2rem;
+}
+
+#recipes {
+	width: 80%;
+	margin: 0 auto;
+	margin-bottom: 4rem;
+}
+	#recipes .recipe {
+		overflow: auto;
+		width: 100%;
+		height: 30rem;
+		border-bottom: 1px solid gray;
+		margin-bottom: 1rem;
+		box-sizing: border-box;
+	}
+		.recipe-title {
+			font-weight: bold;
+		}
+		.recipe-ingredients {
+			width: 30rem;
+			float: left;
+		}
+			.recipe-image-ingredients {
+				display: none;
+			}
+		.recipe-method {
+			float: right;
+			display: inline-block;
+			width: calc(100% - 30rem);
+			box-sizing: border-box;
+		}
+		.recipe-image-method, .recipe-image-ingredients {
+			float: right;
+			padding: 0.5rem;
+			width: 15rem;
+			height: auto;
+		}
+
+@media (max-width: 700px) {
+	#recipes, #nutrition {
+		width: 100%;
+	}
+	#recipes .recipe {
+		height: 100%;
+	}
+	#recipes .recipe .recipe-ingredients {
+		overflow: visible;
+		width: 100%;
+		float: none;
+		border: 0;
+		height: auto;
+	}
+		.recipe-image-ingredients {
+			height: ;
+			display: inline-block;
+		}
+	#recipes .recipe .recipe-method {
+		overflow: visible;
+		width: 100%;
+		height: auto;
+		float: none;
+	}
+		.recipe-image-method {
+			display: none;
+		}
+}

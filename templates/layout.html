@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>Fridge thing</title>
+	<link rel="apple-touch-icon" href="/images/touch-icon-iphone.png" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	    <!-- iPad retina portrait startup image -->
+    <link href="/image/ipadretina.png"
+          media="(device-width: 768px) and (device-height: 1024px)
+                 and (-webkit-device-pixel-ratio: 2)
+                 and (orientation: portrait)"
+          rel="apple-touch-startup-image">
+
+    <!-- iPad retina landscape startup image -->
+    <link href="/image/ipadretinawide.png"
+          media="(device-width: 768px) and (device-height: 1024px)
+                 and (-webkit-device-pixel-ratio: 2)
+                 and (orientation: landscape)"
+          rel="apple-touch-startup-image">
+
+    <!-- iPad non-retina portrait startup image -->
+    <link href="/image/ipad2.png"
+          media="(device-width: 768px) and (device-height: 1024px)
+                 and (-webkit-device-pixel-ratio: 1)
+                 and (orientation: portrait)"
+          rel="apple-touch-startup-image">
+
+    <!-- iPad non-retina landscape startup image -->
+    <link href="/image/ipad2wide.png"
+          media="(device-width: 768px) and (device-height: 1024px)
+                 and (-webkit-device-pixel-ratio: 1)
+                 and (orientation: landscape)"
+          rel="apple-touch-startup-image">
+
+    <!-- iPhone 6 Plus portrait startup image -->
+    <link href="/images/6plus.png"
+          media="(device-width: 414px) and (device-height: 736px)
+                 and (-webkit-device-pixel-ratio: 3)
+                 and (orientation: portrait)"
+          rel="apple-touch-startup-image">
+
+    <!-- iPhone 6 Plus landscape startup image -->
+    <link href="/images/6wide.png"
+          media="(device-width: 414px) and (device-height: 736px)
+                 and (-webkit-device-pixel-ratio: 3)
+                 and (orientation: landscape)"
+          rel="apple-touch-startup-image">
+
+    <!-- iPhone 6 startup image -->
+    <link href="/images/6.png"
+          media="(device-width: 375px) and (device-height: 667px)
+                 and (-webkit-device-pixel-ratio: 2)"
+          rel="apple-touch-startup-image">
+
+    <!-- iPhone 5 startup image -->
+    <link href="/images/5.png"
+          media="(device-width: 320px) and (device-height: 568px)
+                 and (-webkit-device-pixel-ratio: 2)"
+          rel="apple-touch-startup-image">
+
+    <!-- iPhone < 5 retina startup image -->
+    <link href="/images/4wide.png"
+          media="(device-width: 320px) and (device-height: 480px)
+                 and (-webkit-device-pixel-ratio: 2)"
+          rel="apple-touch-startup-image">
+
+    <!-- iPhone < 5 non-retina startup image -->
+    <link href="/images/4.png"
+          media="(device-width: 320px) and (device-height: 480px)
+                 and (-webkit-device-pixel-ratio: 1)"
+          rel="apple-touch-startup-image">
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+	<link href= "css/bootstrap.min.css" rel="stylesheet" />
+	<link href= "css/styles.css" rel="stylesheet"/>
+	<link href= "css/flat-ui.min.css" rel="stylesheet">
+
+	{% block head %}{% endblock %}
+
+</head>
+<body>
+		<img src='/images/load.gif' id='loader'/>
+		<div id='overlay'></div>
+
+	<div class="navbar navbar-default navbar-static-top">
+		<div id='header-mobile' class = "container">
+
+			<img src='/images/logoSmall.png' id='logoImage' />
+			<a href="/" id='home-link' class="navbar-brand">Fridge Thing</a>
+
+			<button class = "navbar-toggle" data-toggle = "collapse" data-target = ".navHeaderCollapse">
+				<span class = "icon-bar"></span>
+				<span class = "icon-bar"></span>
+				<span class = "icon-bar"></span>
+			</button>
+
+			<div id='menu-items' class= "collapse navbar-collapse navHeaderCollapse">
+
+
+				<ul class = "nav navbar-nav navbar-right">
+					{% block links %}
+						<li><a href = "/">Home</a></li>
+						<li ><a href = "soonExpiring">Soon expiring</a></li>
+						<li ><a href = "recipes">Recipes</a></li>
+						<li><a href = "shoppingList">Shopping list</a></li>
+						<li ><a href="/account/logout">Logout</a></li>
+						<li><a href = "" data-toggle="modal"></a></li>
+					{% endblock %}
+
+				</ul>
+
+			</div>
+
+		</div>
+	</div>
+
+	 <div id='app' class = "container">	
+
+		{% block content %}{% endblock %}
+
+
+		<div class = "navbar navbar-default	 navbar-fixed-bottom">
+			<div class = "container">
+				<p class = "navbar-text pull-left">Fridge thing</p>
+			</div>
+		</div>
+	</div>
+		
+	<script type="text/javascript" src= "http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript" src= "js/bootstrap.js"></script>
+	<script type="text/javascript" src= "js/loader.js"></script>
+	{% block scripts %}{% endblock %}
+ 
+ </body>
+ </html>
