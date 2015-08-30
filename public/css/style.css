@@ -72,7 +72,7 @@ Default gray: #848484
 	.tab div {
 		cursor: pointer;
 	    display: inline-block;
-	    width: 32%;
+	    width: calc(100% / 3 - 0.3rem);
 	    text-align: center;
 	    font-size: 0.95rem;
 	    border-radius: 0.3rem;
