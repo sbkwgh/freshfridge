@@ -81,6 +81,7 @@ Default gray: #848484
 	.tab div:nth-child(2) {
 		padding-left: 0.2rem;
 		padding-right: 0.2rem;
+		font-size: 0.94rem;
 	}
 	.tab .tab-selected {
 		height: 1rem;
