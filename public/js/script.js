@@ -96,9 +96,10 @@ var webSQL = {
 		return this.db.db;
 	},
 	onError: function(tx, err) {
-		alert(err);
+		console.log(err);
 	},
 	onSuccess: function() {
+		console.log('success');
 	},
 	openDb: function() {
 		var dbSize = 4 * 1024 * 1024;
@@ -119,20 +120,18 @@ var webSQL = {
 	},
 	add: function(obj) {
 		var db = this.db();
-		var self = this;
 		
 		db.transaction(function(tx) {
 			tx.executeSql(
 				'INSERT INTO items(completed, name, imageURL, expiryDate) VALUES(?, ?, ?, ?)',
 				[false, obj.name, obj.imageURL, obj.expiryDate],
-				self.onSuccess, 
-				self.onError
+				this.onSuccess, 
+				this.onError
 			);
 		});
 	},
 	get: function(cb) {
 		var db = this.db();
-		var self = this;
 		
 		function success(tx, results) {
 			var items = [];
@@ -148,34 +147,35 @@ var webSQL = {
 			tx.executeSql(
 				'SELECT * FROM items',
 				[],
-				self.success,
-				self.onError
+				success,
+				function(tx, err) {
+					alert(JSON.string(err))
+				}
 			);
 		});
 	},
 	remove: function(index) {
 		var db = this.db();
-		var self = this;
 		
 		db.transaction(function(tx) {
 			tx.executeSql(
 				'DELETE FROM items WHERE ID = ?',
 				[index],
-				self.onSuccess,
-				self.onError
+				this.onSuccess,
+				this.onError
 			);
 		});
 	},
 	update: function(index, item) {
 		var db = this.db();
-		var self = this;
+	
 
 		db.transaction(function(tx) {
 			tx.executeSql(
 				'UPDATE items SET completed=?, name=?, imageURL=?, expiryDate=? WHERE ID=?',
 				[item.completed, item.name, item.imageURL, item.expiryDate, index],
-				self.onSuccess,
-				self.onError
+				this.onSuccess,
+				this.onError
 			);
 		});
 	}
