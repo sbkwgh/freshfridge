@@ -4,7 +4,7 @@
 	position: fixed;
 	top: -100%;
 	background-color: #FFF;
-	z-index: 2;
+	z-index: 3;
 }
 	#recipe-url iframe {
 		width: 100%;
@@ -73,10 +73,6 @@
 	padding: 0.5rem;
 	text-transform: capitalize;
 }
-	.recipe-cards-title:first-child {
-		margin-top: 3rem;
-	}
-
 
 .recipe-cards {
 	width: 100%;

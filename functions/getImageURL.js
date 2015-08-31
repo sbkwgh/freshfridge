@@ -17,7 +17,10 @@ module.exports = function(name, cb) {
 		var code, imgURL;
 
 		if(err) errors.push('unknown error');
-		if(!response.d.results.length) errors.push('no images');
+		if(!response.d || !response.d.results.length) {
+			errors.push('no images');
+			console.log(response.d)
+		}
 
 		if(errors.length) {
 			cb(errors)

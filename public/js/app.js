@@ -10,12 +10,26 @@ document.querySelector('#header-icon-add').addEventListener('click', function() 
 	}
 });
 
+document.body.addEventListener('click', function(ev) {
+	if(ev.target.tagName === 'A') {
+		var url = ev.target.getAttribute('href');
+		if(confirm('Do you want to open this link?\nIt will open in a new browser window.')) {
+			window.open(url)
+		}
+		ev.preventDefault();
+		ev.stopPropagation();
+	}
+})
+
 var app = new Vue({
 	el: 'body',
 	data: {
 		display: {
 			isEditing: false,
-			menuVisible: false
+			menuVisible: false,
+			showLoader: false,
+			showRecipeSource: false,
+			recipeSourceUrl: ''
 		},
 		currentView: 'fridge',
 		menuItems: [],
@@ -33,14 +47,20 @@ var app = new Vue({
 		this.$on('menuItems', function(menuItems) {
 			this.menuItems = menuItems;
 		});
-		this.$on('toggleEditing', function() {
+		this.$on('toggleShowRecipeSource', function(url) {
 			this.display.isEditing = !this.display.isEditing;
+			this.display.showRecipeSource = !this.display.showRecipeSource;
+			this.display.recipeSourceUrl = url;
+		});
+		this.$on('toggleLoader', function() {
+			this.display.showLoader = !this.display.showLoader;
 		})
 	},
 	components: {
 		fridge: fridgeView,
 		list: listView,
-		recipe: recipeView
+		recipe: recipeView,
+		about: aboutView
 	},
 	methods: {
 		addItem: function() {
@@ -55,7 +75,7 @@ var app = new Vue({
 
 			ajax.get(
 				'/api/image',
-				{name: name},
+				{name: name, data: true},
 				function(err, image) {
 					if(!err) {
 						var newItem = {
@@ -92,11 +112,10 @@ var app = new Vue({
 			this.$broadcast('toggleIsEditing');
 		},
 		doneEditing: function() {
-			this.display.isEditing = !this.display.isEditing;
-
 			if(this.currentView === 'recipe') {
-				this.$broadcast('closeSourceUrl');
+				this.$emit('toggleShowRecipeSource');
 			} else {
+				this.display.isEditing = !this.display.isEditing;
 				this.$broadcast('toggleIsEditing');
 			}
 		},
@@ -108,6 +127,8 @@ var app = new Vue({
 		},
 		changeView: function(viewName) {
 			location.hash = viewName;
+			this.display.showLoader = false;
+			this.display.menuVisible = false;
 		}
 	}
 });

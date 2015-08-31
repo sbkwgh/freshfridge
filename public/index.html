@@ -8,10 +8,28 @@
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 	<link rel="stylesheet" type="text/css" href="css/list.css">
 	<link rel="stylesheet" type="text/css" href="css/recipe.css">
+	<link rel="stylesheet" type="text/css" href="css/about.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<title>App</title>
 </head>
 <body>
+	<div class="sk-fading-circle" v-show='display.showLoader' id='loader'>
+		<div class="sk-circle1 sk-circle"></div>
+		<div class="sk-circle2 sk-circle"></div>
+		<div class="sk-circle3 sk-circle"></div>
+		<div class="sk-circle4 sk-circle"></div>
+		<div class="sk-circle5 sk-circle"></div>
+		<div class="sk-circle6 sk-circle"></div>
+		<div class="sk-circle7 sk-circle"></div>
+		<div class="sk-circle8 sk-circle"></div>
+		<div class="sk-circle9 sk-circle"></div>
+		<div class="sk-circle10 sk-circle"></div>
+		<div class="sk-circle11 sk-circle"></div>
+		<div class="sk-circle12 sk-circle"></div>
+	</div>
+	<div id='recipe-url' v-class='show-recipe-url: display.showRecipeSource'>
+				<iframe src='{{display.recipeSourceUrl}}'></iframe>
+			</div>
 	<div id='header'>
 		<div id='header-action' v-show='hidden: display.isEditing'>
 			<button style='top: -1.25rem; left: 25.5%; position: absolute;' v-on='click: doneEditing'>Done</button>
@@ -31,8 +49,7 @@
 			</template>
 		</ul>
 		<ul id='menu-general'>
-			<li>Logout</li>
-			<li>Settings</li>
+			<li v-on='click: changeView("about")'>About</li>
 		</ul>
 	</div>
 	<div id='main-cover' v-on='click: toggleMenu' v-class='no-visibility: !display.menuVisible'></div>
@@ -113,7 +130,7 @@
 			</div>
 		</div>
 	</div>
-	<div id='main'>
+	<div id='main' v-class='blur: display.showLoader'>
 		<component is='{{currentView}}'></component>
 	</div>
 
@@ -186,9 +203,6 @@
 	</script>
 
 	<script type="text/template" id='recipeTemplate'>
-			<div id='recipe-url' v-class='show-recipe-url: showRecipeSource'>
-				<iframe src='{{recipeSourceUrl}}'></iframe>
-			</div>
 			<div class='recipe-cards-title'>Starred <div class='star-fill'></div></div>
 				<div class='recipe-cards'>
 					<div class='recipe-cards-no-recipe' v-if='!starredRecipes.length'>
@@ -257,12 +271,36 @@
 		</template>
 	</script>
 
+	<script type='text/template' id='aboutTemplate'>
+		<h1 id='aboutTitle'>FreshFridge</h1>
+		<div id='aboutMain'>
+			<h2>About</h2>
+			<p>
+				Keep track of what&apos;s in your fridge and when it&apos;s going to expire, 
+				find and star recipes, and get organised with a shopping list
+			</p>
+			<h2>Attributions</h2>
+			<p>
+				<div>Icons made by:<div>
+				<a href="http://www.flaticon.com/authors/icon-works" title="Icon Works">Icon Works</a> 
+				<a href="http://www.flaticon.com/authors/google" title="Google">Google</a> 
+				<a href="http://www.flaticon.com/authors/graphicsbay" title="GraphicsBay">GraphicsBay</a>, 
+				<a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>, 
+				<a href="http://www.flaticon.com/authors/catalin-fertu" title="Catalin Fertu">Catalin Fertu</a>, 
+				<a href="http://www.flaticon.com/authors/pavel-kozlov" title="Pavel Kozlov">Pavel Kozlov</a> from 
+				<a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by 
+				<a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
+			</p>
+		</div>
+	</script>
+
 	<script type="text/javascript" src='js/hammer.js'></script>
 	<script type="text/javascript" src='js/vue.js'></script>
 	<script type="text/javascript" src='js/script.js'></script>
 	<script type="text/javascript" src='js/fridgeView.js'></script>
 	<script type="text/javascript" src='js/listView.js'></script>
 	<script type="text/javascript" src='js/recipeView.js'></script>
+	<script type="text/javascript" src='js/aboutView.js'></script>
 	<script type="text/javascript" src='js/app.js'></script>
 </body>
 </html>

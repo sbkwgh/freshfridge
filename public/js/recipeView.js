@@ -97,6 +97,7 @@ function getRecipes(self) {
 
 		var categories = [];
 		
+		self.$dispatch('toggleLoader');
 		ajax.get('/api/recipes', {ingredients: ingredients}, function(err, recipes) {
 			if(!err) {
 				recipes.recipes.forEach(function(recipe) {
@@ -112,7 +113,7 @@ function getRecipes(self) {
 				self.recipeCategories = arrayOfCategoriesFromObj(categories);
 
 				localStorage.recipeCategories = JSON.stringify(arrayOfCategoriesFromObj(categories));
-
+				self.$dispatch('toggleLoader');
 			}
 		});
 	});
@@ -181,8 +182,7 @@ var recipeView = {
 			recipe.classList.toggle('recipe-hidden');
 		},
 		recipeUrl: function() {
-			this.showRecipeSource = true;
-			this.$dispatch('toggleEditing');
+			this.$dispatch('toggleShowRecipeSource', this.recipeSourceUrl);
 		},
 		starRecipeCard: function() {
 			var recipe = this.recipeCategories[this.categoryIndex].recipeCards[this.recipeIndex];
@@ -190,7 +190,7 @@ var recipeView = {
 			var starRecipeCardIndex = null;
 			
 			for(var i = 0; i < this.starredRecipes.length; i++) {
-				if(recipe.image === this.starredRecipes[i].image) {
+				if(recipe.image_url === this.starredRecipes[i].image_url) {
 					recipeStarred = true;
 					starRecipeCardIndex = i;
 				}
@@ -228,6 +228,7 @@ var recipeView = {
 			recipe.classList.toggle('recipe-hidden');
 			this.starredRecipes.$remove(this.recipeIndex)
 			store.remove('starredRecipes', this.recipeIndex);
+			scroll($('.recipe-cards')[0], -1);
 		}
 	}
 };

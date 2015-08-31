@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var config = require('../config.js');
+var request = require('request').defaults({ encoding: null });
 var httpJSON = require('../functions/httpJSON.js');
 
 var nutritionix = require('nutritionix')({
@@ -63,9 +64,20 @@ router.get('/image', function(req, res, next) {
 				errors: err
 			});
 		} else {
-			res.json({
-				url: url
-			});
+			if(req.query.data) {
+				request.get(url, function(err, imgRes, body) {
+					if(!err && imgRes.statusCode === 200) {
+						var dataUrl = 'data:' + imgRes.headers['content-type'] + ';base64,' + new Buffer(body).toString('base64');
+						res.json({
+							url: dataUrl
+						});
+					}
+				})
+			} else {
+				res.json({
+					url: url
+				});
+			}
 		}
 	})
 })
@@ -91,7 +103,9 @@ function getRecipeList(ingredients, cb) {
 		function(err, recipes) {
 			if(err) cb(err);
 
+
 			function shuffle(arr) {
+				arr = arr.slice(0)
 				var shuffledArr = [];
 				while (shuffledArr.length !== arr.length) {
 					var rand = Math.floor(Math.random() * (1 + arr.length));
@@ -107,7 +121,13 @@ function getRecipeList(ingredients, cb) {
 				return recipe.recipe_id;
 			})
 
-			cb(null, recipeIds);
+			if(!recipes.recipes.length) {
+				var newIngredients = shuffle(ingredients.split(',')).slice(0, ingredients.split(',').length-1).join(',');
+				console.log(newIngredients)
+				getRecipeList(newIngredients, cb)
+			} else {
+				cb(null, recipeIds);
+			}
 		}
 	)
 }
@@ -144,7 +164,7 @@ router.get('/recipes', function(req, res) {
 			if(err) {
 				res.json({errors: ['ingredient parameter undefined']});
 				return;
-			}	
+			}
 			res.json({recipes: recipes})
 		});
 	});
