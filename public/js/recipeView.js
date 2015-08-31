@@ -96,26 +96,29 @@ function getRecipes(self) {
 		}).join(',');
 
 		var categories = [];
+
+		if(!ingredients.length) {
 		
-		self.$dispatch('toggleLoader');
-		ajax.get('/api/recipes', {ingredients: ingredients}, function(err, recipes) {
-			if(!err) {
-				recipes.recipes.forEach(function(recipe) {
-					var recipeCategoryTitle = checkIfRecipeContainsItemAsIngredient(recipe);
-					if(recipeCategoryTitle) {
-						if(!categories[recipeCategoryTitle]) {
-							categories[recipeCategoryTitle] = []
+			self.$dispatch('toggleLoader');
+			ajax.get('http://freshfridge.herokuapp.com/api/recipes', {ingredients: ingredients}, function(err, recipes) {
+				if(!err) {
+					recipes.recipes.forEach(function(recipe) {
+						var recipeCategoryTitle = checkIfRecipeContainsItemAsIngredient(recipe);
+						if(recipeCategoryTitle) {
+							if(!categories[recipeCategoryTitle]) {
+								categories[recipeCategoryTitle] = []
+							}
+
+							categories[recipeCategoryTitle].push(recipe)
 						}
+					})
+					self.recipeCategories = arrayOfCategoriesFromObj(categories);
 
-						categories[recipeCategoryTitle].push(recipe)
-					}
-				})
-				self.recipeCategories = arrayOfCategoriesFromObj(categories);
-
-				localStorage.recipeCategories = JSON.stringify(arrayOfCategoriesFromObj(categories));
-				self.$dispatch('toggleLoader');
-			}
-		});
+					localStorage.recipeCategories = JSON.stringify(arrayOfCategoriesFromObj(categories));
+					self.$dispatch('toggleLoader');
+				}
+			});
+		}
 	});
 }
 
