@@ -133,6 +133,7 @@
 			background-color: #6c6c6c;
 			color: #FFF;
 			position: relative;
+			margin-bottom: 0.5rem;
 		}
 			.recipe-left-shadow {
 				height: calc(100% + 1rem);
