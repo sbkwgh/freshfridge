@@ -96,10 +96,7 @@ var webSQL = {
 		return this.db.db;
 	},
 	onError: function(tx, err) {
-		console.log(err);
-	},
-	onSuccess: function() {
-		console.log('success');
+		alert(err);
 	},
 	openDb: function() {
 		var dbSize = 4 * 1024 * 1024;
@@ -113,25 +110,33 @@ var webSQL = {
 	},
 	createTable: function() {
 		var db = this.db();
+		var self = this;
 		
 		db.transaction(function(tx) {
-			tx.executeSql('CREATE TABLE IF NOT EXISTS items(ID INTEGER PRIMARY KEY ASC, completed BOOL, name TEXT, imageURL TEXT, expiryDate DATETIME)', []);
+			tx.executeSql(
+				'CREATE TABLE IF NOT EXISTS items(ID INTEGER PRIMARY KEY ASC, completed BOOL, name TEXT, imageURL TEXT, expiryDate DATETIME)', 
+				[],
+				null,
+				self.onError
+			);
 		});
 	},
 	add: function(obj) {
 		var db = this.db();
+		var self = this;
 		
 		db.transaction(function(tx) {
 			tx.executeSql(
 				'INSERT INTO items(completed, name, imageURL, expiryDate) VALUES(?, ?, ?, ?)',
 				[false, obj.name, obj.imageURL, obj.expiryDate],
-				this.onSuccess, 
-				this.onError
+				null, 
+				self.onError
 			);
 		});
 	},
 	get: function(cb) {
 		var db = this.db();
+		var self = this;
 		
 		function success(tx, results) {
 			var items = [];
@@ -148,34 +153,33 @@ var webSQL = {
 				'SELECT * FROM items',
 				[],
 				success,
-				function(tx, err) {
-					alert(JSON.string(err))
-				}
+				self.onError
 			);
 		});
 	},
 	remove: function(index) {
 		var db = this.db();
+		var self = this;
 		
 		db.transaction(function(tx) {
 			tx.executeSql(
 				'DELETE FROM items WHERE ID = ?',
 				[index],
-				this.onSuccess,
-				this.onError
+				null,
+				self.onError
 			);
 		});
 	},
 	update: function(index, item) {
 		var db = this.db();
-	
+		var self = this;
 
 		db.transaction(function(tx) {
 			tx.executeSql(
 				'UPDATE items SET completed=?, name=?, imageURL=?, expiryDate=? WHERE ID=?',
 				[item.completed, item.name, item.imageURL, item.expiryDate, index],
-				this.onSuccess,
-				this.onError
+				null,
+				self.onError
 			);
 		});
 	}
