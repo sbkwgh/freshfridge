@@ -82,7 +82,7 @@ var fridgeView = {
 			var self = this;
 			store.get('items', function(items) {
 				self.items = items.filter(function(item) {
-					return item.name.slice(0, self.searchBox.length) === self.searchBox;
+					return item.name.slice(0, self.searchBox.length).toLowerCase() === self.searchBox.toLowerCase();
 				});
 			});
 		}

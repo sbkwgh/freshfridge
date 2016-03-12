@@ -28,7 +28,7 @@
 		<div class="sk-circle12 sk-circle"></div>
 	</div>
 	<div id='recipe-url' v-class='show-recipe-url: display.showRecipeSource'>
-				<iframe src='{{display.recipeSourceUrl}}'></iframe>
+				<iframe v-attr='src: display.recipeSourceUrl'></iframe>
 			</div>
 	<div id='header'>
 		<div id='header-action' v-show='hidden: display.isEditing'>
@@ -137,7 +137,7 @@
 	<script type='text/template' id='fridgeTemplate'>
 		<div class='tab'>
 				<div v-on='click: selectTab("all")' v-class='tab-selected: tab === "all"'>All items</div>
-				<div v-on='click: selectTab("expiring")' v-class='tab-selected: tab === "expiring"'>Soon expiring</div>
+				<div v-on='click: selectTab("expiring")' v-class='tab-selected: tab === "expiring"'>Expiring</div>
 				<div v-on='click: selectTab("search")' v-class='tab-selected: tab === "search"'>Search</div>
 		</div>
 		<div id='search' v-show='tab === "search"'>

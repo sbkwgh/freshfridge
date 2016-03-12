@@ -6,7 +6,6 @@ function scroll(el, sign) {
 	var newScrollLeft = currentLeft + Math.round(el.offsetWidth * sign * 0.82);
 
 	if(newScrollLeft <= width) {
-		console.log('here')
 		newScrollLeft = width;
 	} else if(newScrollLeft > 0) {
 		newScrollLeft = 0;

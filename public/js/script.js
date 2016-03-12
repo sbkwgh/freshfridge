@@ -89,6 +89,10 @@ var ajax = {
 
 var webSQL = {
 	db: function() {
+		if(this.db.db === null) {
+			return null;
+		}
+
 		if(!this.db.db) {
 			this.openDb();
 			this.createTable();
@@ -101,9 +105,10 @@ var webSQL = {
 	openDb: function() {
 		var dbSize = 4 * 1024 * 1024;
 		
-		if(!openDatabase) {
-			store.onError();
-			return;
+		if(!('openDatabase' in window)) {
+			this.db.db = null;
+			location.href = 'not_supported.html';
+			return new Error('Browser not supported');
 		}
 	
 		this.db.db = openDatabase('store', 1, 'database for the app', dbSize);
