@@ -96,10 +96,9 @@ function getRecipes(self) {
 
 		var categories = [];
 
-		if(!ingredients.length) {
-		
+		if(ingredients.length) {		
 			self.$dispatch('toggleLoader');
-			ajax.get('http://freshfridge.herokuapp.com/api/recipes', {ingredients: ingredients}, function(err, recipes) {
+			ajax.get('/api/recipes', {ingredients: ingredients}, function(err, recipes) {
 				if(!err) {
 					recipes.recipes.forEach(function(recipe) {
 						var recipeCategoryTitle = checkIfRecipeContainsItemAsIngredient(recipe);

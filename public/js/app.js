@@ -74,7 +74,7 @@ var app = new Vue({
 			if(!name) return;
 
 			ajax.get(
-				'http://freshfridge.herokuapp.com/api/image',
+				'/api/image',
 				{name: name, data: true},
 				function(err, image) {
 					if(!err) {
